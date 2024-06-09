@@ -1,0 +1,46 @@
+<div class="main-body">
+    <div class="panel-header">
+      <h2>Liste des Chambres</h2>
+      <div class="add-button-container">
+      
+    </div>
+    </div>
+    <div class="search-container">
+      <mat-form-field class="search-input">
+        <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher...">
+      </mat-form-field>
+      <button mat-icon-button color="primary" (click)="navigateToAddChambre()" aria-label="Ajouter client">
+        <mat-icon>add</mat-icon>
+      </button>
+     
+    </div>
+  
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>IdSociete</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let chambre of chambres">
+            <td>{{ chambre.id }}</td>
+            <td>{{ chambre.name }}</td>
+            <td>{{ chambre.idSociete }}</td>
+            <td>
+              <button mat-icon-button color="primary" (click)="editChambre(chambre.id)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deleteChambre(chambre.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

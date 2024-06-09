@@ -1,0 +1,58 @@
+<div class="main-body">
+    <div class="panel-header">
+      <h2>Liste des clients</h2>
+      
+     
+    </div>
+
+    <div class="search-container">
+      <mat-form-field class="search-input">
+        <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher...">
+      </mat-form-field>
+      <button mat-icon-button color="primary" (click)="navigateToAddClient()" aria-label="Ajouter client">
+        <mat-icon>add</mat-icon>
+      </button>
+     
+    </div>
+    
+    
+  
+    <div class="table-container">
+      <!-- Tableau des clients ici -->
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Adresse</th>
+            <th>Type</th>
+            <th>CIN</th>
+            <th>ID Societe</th>
+            <th>Actions</th> <!-- Nouvelle colonne pour les actions -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let client of clients">
+            <td>{{ client.id }}</td>
+            <td>{{ client.name }}</td>
+            <td>{{ client.adresse }}</td>
+            <td>{{ client.type }}</td>
+            <td>{{ client.cin }}</td>
+            <td>{{ client.idSociete }}</td>
+            <td>
+              
+              <!-- Boutons pour les actions edit et delete -->
+              <button mat-icon-button color="primary" (click)="navigateToEditClient(client.id)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deleteClient(client.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+    </div>
+  </div>
+  

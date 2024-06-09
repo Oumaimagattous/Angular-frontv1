@@ -1,0 +1,89 @@
+// Styles for the panel header
+.panel-header {
+  background-color: #f0f0f0; // Couleur de fond
+  padding: 10px; // Espacement autour de l'en-tête
+  text-align: center; // Alignement du texte au centre
+}
+.panel-header h2 {
+  margin: 0; // Supprimer les marges par défaut du titre
+}
+
+// Styles for the main body
+.main-body {
+  padding: 20px; // Espacement autour du corps principal
+  box-sizing: border-box; // Inclure les bordures et les marges dans la largeur/hauteur
+}
+
+// Styles for the form field
+.mat-form-field {
+  margin-bottom: 20px; // Espacement en dessous du champ de formulaire
+  width: 100%; // Assurer que le champ de formulaire occupe toute la largeur
+}
+
+// Styles for the table container
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+// Styles for the table
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+      padding: 10px;
+      text-align: left;
+  }
+
+  th {
+      background-color: #00bcd4; // Couleur de fond de l'en-tête en bleu clair
+      color: #01579b; // Couleur du texte de l'en-tête en bleu foncé
+  }
+
+  tr:nth-child(even) {
+      background-color: #e3f2fd; // Couleur de fond des lignes paires en bleu plus clair
+  }
+
+  tr:hover {
+      background-color: #bbdefb; // Couleur de fond au survol en bleu moyen
+  }
+
+  button.mat-icon-button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+
+      &[color="primary"] {
+          color: #005f99; // Couleur bleu siel
+      }
+
+      &[color="warn"] {
+          color: #005f99; // Couleur rouge pour le bouton delete
+      }
+  }
+}
+
+.add-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px; // Espace entre le bouton et le tableau
+}
+
+.add-button {
+  width: 40px; // Largeur du bouton
+  height: 40px; // Hauteur du bouton
+  background-color: #005f99; // Couleur bleu siel
+  color: white; // Couleur du texte
+  border: none;
+  border-radius: 5px; // Bordure arrondie
+  cursor: pointer;
+
+  &:hover {
+      background-color: #004d80; // Couleur plus foncée au survol
+  }
+
+  mat-icon {
+      font-size: 24px;
+  }
+}

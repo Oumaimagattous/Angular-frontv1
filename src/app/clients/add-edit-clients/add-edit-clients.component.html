@@ -1,0 +1,25 @@
+<h2>{{isEditMode ? 'Modifier Client' : 'Ajouter Client'}}</h2>
+<form #clientForm="ngForm" (ngSubmit)="onSubmit(clientForm)">
+  <mat-form-field>
+    <mat-label>Nom</mat-label>
+    <input matInput name="name" [(ngModel)]="client.name" required>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Adresse</mat-label>
+    <input matInput name="adresse" [(ngModel)]="client.adresse" required>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Type</mat-label>
+    <input matInput name="type" [(ngModel)]="client.type" required>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>CIN</mat-label>
+    <input matInput name="cin" [(ngModel)]="client.cin" required>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>ID Societe</mat-label>
+    <input matInput name="idSociete" [(ngModel)]="client.idSociete">
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit">{{isEditMode ? 'Modifier' : 'Ajouter'}}</button>
+  <button mat-button (click)="onCancel()">Annuler</button>
+</form>
