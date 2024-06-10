@@ -6,22 +6,23 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ChambresService {
+  private readonly baseUrl = 'https://localhost:7129/api/Chambre';
 
   constructor(private _http: HttpClient) {}
 
   addChambre(data: any): Observable<any> {
-    return this._http.post('https://localhost:7129/api/Chambre', data);
+    return this._http.post(`${this.baseUrl}`, data);
   }
 
   updateChambre(id: number, data: any): Observable<any> {
-    return this._http.put(`https://localhost:7129/api/Chambre/${id}`, data);
+    return this._http.put(`${this.baseUrl}/${id}`, data);
   }
 
   getChambreList(): Observable<any> {
-    return this._http.get('https://localhost:7129/api/Chambre');
+    return this._http.get(`${this.baseUrl}`);
   }
 
   deleteChambre(id: number): Observable<any> {
-    return this._http.delete(`https://localhost:7129/api/Chambre/${id}`);
+    return this._http.delete(`${this.baseUrl}/${id}`);
   }
 }

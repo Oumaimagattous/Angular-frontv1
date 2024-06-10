@@ -6,22 +6,27 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SocietesService {
+  private readonly baseUrl = 'https://localhost:7129/api/Societe';
 
   constructor(private _http: HttpClient) {}
 
   addSociete(data: any): Observable<any> {
-    return this._http.post('https://localhost:7129/api/Societe', data);
+    return this._http.post(`${this.baseUrl}`, data);
   }
 
   updateSociete(id: number, data: any): Observable<any> {
-    return this._http.put(`https://localhost:7129/api/Societe/${id}`, data);
+    return this._http.put(`${this.baseUrl}/${id}`, data);
   }
 
   getSocieteList(): Observable<any> {
-    return this._http.get('https://localhost:7129/api/Societe');
+    return this._http.get(`${this.baseUrl}`);
+  }
+
+  getSociete(id: number): Observable<any> {
+    return this._http.get(`${this.baseUrl}/${id}`);
   }
 
   deleteSociete(id: number): Observable<any> {
-    return this._http.delete(`https://localhost:7129/api/Societe/${id}`);
+    return this._http.delete(`${this.baseUrl}/${id}`);
   }
 }

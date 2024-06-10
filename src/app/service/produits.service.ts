@@ -6,22 +6,27 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProduitsService {
+  private readonly baseUrl = 'https://localhost:7129/api/Produit';
 
   constructor(private _http: HttpClient) {}
 
   addProduit(data: any): Observable<any> {
-    return this._http.post('https://localhost:7129/api/Produit', data);
+    return this._http.post(`${this.baseUrl}`, data);
   }
 
   updateProduit(id: number, data: any): Observable<any> {
-    return this._http.put(`https://localhost:7129/api/Produit/${id}`, data);
+    return this._http.put(`${this.baseUrl}/${id}`, data);
   }
 
   getProduitList(): Observable<any> {
-    return this._http.get('https://localhost:7129/api/Produit');
+    return this._http.get(`${this.baseUrl}`);
+  }
+
+  getProduit(id: number): Observable<any> {
+    return this._http.get(`${this.baseUrl}/${id}`);
   }
 
   deleteProduit(id: number): Observable<any> {
-    return this._http.delete(`https://localhost:7129/api/Produit/${id}`);
+    return this._http.delete(`${this.baseUrl}/${id}`);
   }
 }

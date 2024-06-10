@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BonEntrersService } from 'app/service/bon-entrers.service';
-//import { BonEntree } from '../Models/bon-entree';
 import { Router } from '@angular/router';
 import { BonEntree } from 'app/Models/bon-entree';
 import { AddEditBonEntrerComponent } from './add-edit-bon-entrer/add-edit-bon-entrer.component';
@@ -15,7 +14,10 @@ import { MatDialog } from '@angular/material/dialog';
 export class BonEntrerComponent implements OnInit {
 
   bonsEntree: BonEntree[] = [];
- 
+  filteredBonsEntree: BonEntree[] = [];
+  startDate: Date | null = null;
+  endDate: Date | null = null;
+
   @ViewChild(MatSnackBar) snackBar: MatSnackBar;
 
   constructor(
@@ -31,27 +33,16 @@ export class BonEntrerComponent implements OnInit {
   loadBonsEntree(): void {
     this.bonEntreeService.getBonEntrerList().subscribe(bonsEntree => {
       this.bonsEntree = bonsEntree;
-     
+      this.filteredBonsEntree = bonsEntree;
     });
   }
 
-  applyFilter(event: any) {
-    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
-
-    // Appliquer le filtre sur les clients
-    this.bonsEntree = this.bonsEntree.filter(bonsEntree =>
-      bonsEntree.date.toString().toLowerCase().includes(filterValue) || 
-      bonsEntree.qte.toString().toLowerCase().includes(filterValue) 
-      
-    );
-  }
-  deleteBonEntree(id: number): void {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce bon d\'entrée ?')) {
-      this.bonEntreeService.deleteBonEntrer(id).subscribe(() => {
-        this.snackBar.open('Bon d\'entrée supprimé avec succès', 'Fermer', { duration: 2000 });
-        this.loadBonsEntree();
-      });
-    }
+ 
+  applyDateFilter(): void {
+    this.filteredBonsEntree = this.bonsEntree.filter(bonEntree => {
+      const date = new Date(bonEntree.date);
+      return (!this.startDate || date >= this.startDate) && (!this.endDate || date <= this.endDate);
+    });
   }
 
   addBonEntree(): void {
@@ -87,4 +78,12 @@ export class BonEntrerComponent implements OnInit {
     });
   }
 
+  deleteBonEntree(id: number): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce bon d\'entrée ?')) {
+      this.bonEntreeService.deleteBonEntrer(id).subscribe(() => {
+        this.snackBar.open('Bon d\'entrée supprimé avec succès', 'Fermer', { duration: 2000 });
+        this.loadBonsEntree();
+      });
+    }
+  }
 }

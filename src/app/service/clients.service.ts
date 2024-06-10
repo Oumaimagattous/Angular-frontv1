@@ -6,26 +6,27 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ClientsService {
+  private readonly baseUrl = 'https://localhost:7129/api/Client';
 
   constructor(private _http: HttpClient) {}
 
   addClient(data: any): Observable<any> {
-    return this._http.post('https://localhost:7129/api/Client', data);
+    return this._http.post(`${this.baseUrl}`, data);
   }
 
   updateClient(id: number, data: any): Observable<any> {
-    return this._http.put(`https://localhost:7129/api/Client/${id}`, data);
+    return this._http.put(`${this.baseUrl}/${id}`, data);
   }
 
   getClientList(): Observable<any> {
-    return this._http.get('https://localhost:7129/api/Client');
+    return this._http.get(`${this.baseUrl}`);
   }
 
   getClient(id: number): Observable<any> {
-    return this._http.get(`https://localhost:7129/api/Client/${id}`);
+    return this._http.get(`${this.baseUrl}/${id}`);
   }
 
   deleteClient(id: number): Observable<any> {
-    return this._http.delete(`https://localhost:7129/api/Client/${id}`);
+    return this._http.delete(`${this.baseUrl}/${id}`);
   }
 }

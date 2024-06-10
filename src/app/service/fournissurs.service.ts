@@ -6,21 +6,27 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FournissursService {
+  private readonly baseUrl = 'https://localhost:7129/api/Fournisseur';
+
   constructor(private _http: HttpClient) {}
 
   addFournisseur(data: any): Observable<any> {
-    return this._http.post('https://localhost:7129/api/Fournisseur', data);
+    return this._http.post(`${this.baseUrl}`, data);
   }
 
   updateFournisseur(id: number, data: any): Observable<any> {
-    return this._http.put(`https://localhost:7129/api/Fournisseur/${id}`, data);
+    return this._http.put(`${this.baseUrl}/${id}`, data);
   }
 
   getFournisseurList(): Observable<any> {
-    return this._http.get('https://localhost:7129/api/Fournisseur');
+    return this._http.get(`${this.baseUrl}`);
+  }
+
+  getFournisseur(id: number): Observable<any> {
+    return this._http.get(`${this.baseUrl}/${id}`);
   }
 
   deleteFournisseur(id: number): Observable<any> {
-    return this._http.delete(`https://localhost:7129/api/Fournisseur/${id}`);
+    return this._http.delete(`${this.baseUrl}/${id}`);
   }
 }

@@ -1,1 +1,59 @@
-<p>bon-sorties works!</p>
+<div class="main-body">
+    <div class="panel-header">
+      <h2>Liste bonSortie</h2>
+    </div>
+    <div class="search-container">
+     
+      <mat-form-field class="date-input">
+        <input matInput [matDatepicker]="pickerStart" placeholder="Date de début" [(ngModel)]="startDate">
+        <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+        <mat-datepicker #pickerStart></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="date-input">
+        <input matInput [matDatepicker]="pickerEnd" placeholder="Date de fin" [(ngModel)]="endDate">
+        <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+        <mat-datepicker #pickerEnd></mat-datepicker>
+      </mat-form-field>
+      <button mat-button color="primary" (click)="applyDateFilter()">Filtrer</button>
+      <button class="add-button" (click)="addBonSortie()" aria-label="Ajouter client">
+        <mat-icon>add</mat-icon>
+      </button>
+
+     
+
+    </div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Quantité</th>
+            <th>Client</th>
+            <th>Chambre</th>
+            <th>Produit</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let bonSortie of filteredBonsSortie">
+            <td>{{ bonSortie.id }}</td>
+            <td>{{ bonSortie.date | date }}</td>
+            <td>{{ bonSortie.qte }}</td>
+            <td>{{ bonSortie.client?.name }}</td>
+            <td>{{ bonSortie.chambre?.name }}</td>
+            <td>{{ bonSortie.produit?.name }}</td>
+            <td>
+              <button mat-icon-button color="primary" (click)="editBonSortie(bonSortie.id)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deletebonSortie(bonSortie.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

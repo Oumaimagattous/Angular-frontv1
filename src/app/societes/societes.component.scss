@@ -1,69 +1,83 @@
-// Styles for the panel header
-.panel-header {
-  background-color: #f0f0f0; // Couleur de fond
-  padding: 10px; // Espacement autour de l'en-tête
+/* Styles pour la page de liste BonEntrée */
+.main-body {
+  background-color: #f5f5f5; /* Couleur de fond douce */
+  padding: 20px; /* Espacement autour de la page */
+  font-family: 'Roboto', sans-serif; /* Police moderne et propre */
+}
+
+.panel-header h2 {
+  color: #00bcd4; /* Couleur principale */
+  margin-bottom: 20px; /* Espacement sous le titre */
   text-align: center; // Alignement du texte au centre
 }
-.panel-header h2 {
-  margin: 0; // Supprimer les marges par défaut du titre
+
+.search-container {
+  display: flex; /* Disposition en ligne */
+  align-items: center; /* Aligne les éléments au centre verticalement */
+  margin-bottom: 20px; /* Espacement sous la barre de recherche */
 }
 
-// Styles for the main body
-.main-body {
-  padding: 20px; // Espacement autour du corps principal
-  box-sizing: border-box; // Inclure les bordures et les marges dans la largeur/hauteur
+.search-input,
+.date-input {
+  margin-right: 15px; /* Espacement entre les champs */
+  flex: 1; /* Les champs prennent l'espace disponible */
 }
 
-// Styles for the form field
 .mat-form-field {
-  margin-bottom: 20px; // Espacement en dessous du champ de formulaire
-  width: 100%; // Assurer que le champ de formulaire occupe toute la largeur
-}
-
-// Styles for the table container
-.table-container {
   width: 100%;
-  overflow-x: auto;
 }
 
-// Styles for the table
+.mat-button {
+  background-color: #00bcd4;
+  color: #fff;
+}
+
+.mat-button:hover {
+  background-color: #0097a7;
+}
+
+.table-container {
+  background-color: #fff; /* Couleur de fond de la table */
+  padding: 20px; /* Espacement autour de la table */
+  border-radius: 8px; /* Coins arrondis */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+}
+
 table {
   width: 100%;
-  border-collapse: collapse;
-
-  th, td {
-      padding: 10px;
-      text-align: left;
-  }
-
-  th {
-      background-color: #00bcd4; // Couleur de fond de l'en-tête en bleu clair
-      color: #01579b; // Couleur du texte de l'en-tête en bleu foncé
-  }
-
-  tr:nth-child(even) {
-      background-color: #e3f2fd; // Couleur de fond des lignes paires en bleu plus clair
-  }
-
-  tr:hover {
-      background-color: #bbdefb; // Couleur de fond au survol en bleu moyen
-  }
-
-  button.mat-icon-button {
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-
-      &[color="primary"] {
-          color: #005f99; // Couleur bleu siel
-      }
-
-      &[color="warn"] {
-          color: #005f99; // Couleur rouge pour le bouton delete
-      }
-  }
+  border-collapse: collapse; /* Supprime les espaces entre les cellules */
 }
 
+th,
+td {
+  padding: 12px 15px; /* Espacement dans les cellules */
+  text-align: left; /* Alignement du texte à gauche */
+}
+
+th {
+  background-color: #00bcd4; /* Couleur de fond des en-têtes */
+  color: #fff; /* Couleur du texte des en-têtes */
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2; /* Couleur de fond des lignes paires */
+}
+
+.mat-icon-button {
+  margin-left: 15px; /* Espacement entre les boutons */
+}
+
+.mat-icon {
+  color: #00bcd4; /* Couleur des icônes */
+}
+
+.mat-icon-button.color-primary {
+  color: #00bcd4; /* Couleur du bouton primaire */
+}
+
+.mat-icon-button.color-warn {
+  color: #d32f2f; /* Couleur du bouton d'alerte */
+}
 .add-button-container {
   display: flex;
   justify-content: flex-end;
@@ -73,17 +87,18 @@ table {
 .add-button {
   width: 40px; // Largeur du bouton
   height: 40px; // Hauteur du bouton
-  background-color: #005f99; // Couleur bleu siel
+  background-color: #00bcd4; // Couleur bleu siel
   color: white; // Couleur du texte
   border: none;
   border-radius: 5px; // Bordure arrondie
   cursor: pointer;
 
   &:hover {
-      background-color: #004d80; // Couleur plus foncée au survol
+      background-color: #00bcd4; // Couleur plus foncée au survol
   }
 
   mat-icon {
       font-size: 24px;
+      color: white;
   }
 }

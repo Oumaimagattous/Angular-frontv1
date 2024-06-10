@@ -1,91 +1,105 @@
-// Styles for the panel header
-.panel-header {
-    background-color: #f0f0f0; // Background color
-    padding: 10px; // Padding around the header
-    
-}
-
-// Styles for the main body
+/* Styles pour la page de liste BonEntrée */
 .main-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px; // Padding around the main body content
+  background-color: #f5f5f5; /* Couleur de fond douce */
+  padding: 20px; /* Espacement autour de la page */
+  font-family: 'Roboto', sans-serif; /* Police moderne et propre */
 }
 
-// Styles for the form field
+.panel-header h2 {
+  color: #00bcd4; /* Couleur principale */
+  margin-bottom: 20px; /* Espacement sous le titre */
+  text-align: center; // Alignement du texte au centre
+}
+
+.search-container {
+  display: flex; /* Disposition en ligne */
+  align-items: center; /* Aligne les éléments au centre verticalement */
+  margin-bottom: 20px; /* Espacement sous la barre de recherche */
+}
+
+.search-input,
+.date-input {
+  margin-right: 15px; /* Espacement entre les champs */
+  flex: 1; /* Les champs prennent l'espace disponible */
+}
+
 .mat-form-field {
-    margin-bottom: 20px; // Margin below the form field
-    width: 100%; // Ensure the form field takes up full width
+  width: 100%;
 }
 
-// Styles for the table container
+.mat-button {
+  background-color: #00bcd4;
+  color: #fff;
+}
+
+.mat-button:hover {
+  background-color: #0097a7;
+}
+
 .table-container {
-    width: 100%;
-    overflow-x: auto; // Enable horizontal scrolling for the table if needed
+  background-color: #fff; /* Couleur de fond de la table */
+  padding: 20px; /* Espacement autour de la table */
+  border-radius: 8px; /* Coins arrondis */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre subtile */
 }
 
-// Styles for the table
 table {
-    width: 100%; // Ensure the table takes up full width
-    border-collapse: collapse; // Collapse table borders
+  width: 100%;
+  border-collapse: collapse; /* Supprime les espaces entre les cellules */
 }
 
-// Styles for table header cells
-th {
-    background-color: #f0f0f0; // Header background color
-    padding: 10px; // Padding inside header cells
-    text-align: left; // Align text to the left within header cells
-}
-
-// Styles for table data cells
+th,
 td {
-    padding: 10px; // Padding inside data cells
-    border-bottom: 1px solid #ccc; // Bottom border for data cells
+  padding: 12px 15px; /* Espacement dans les cellules */
+  text-align: left; /* Alignement du texte à gauche */
 }
 
-// Styles for table rows
-tr {
-    transition: background-color 0.3s ease; // Smooth transition for background color
+th {
+  background-color: #00bcd4; /* Couleur de fond des en-têtes */
+  color: #fff; /* Couleur du texte des en-têtes */
 }
 
-// Hover effect for table rows
-tr:hover {
-    background-color: #f9f9f9; // Light gray background on hover
+tr:nth-child(even) {
+  background-color: #f2f2f2; /* Couleur de fond des lignes paires */
 }
+
+.mat-icon-button {
+  margin-left: 15px; /* Espacement entre les boutons */
+}
+
+.mat-icon {
+  color: #00bcd4; /* Couleur des icônes */
+}
+
+.mat-icon-button.color-primary {
+  color: #00bcd4; /* Couleur du bouton primaire */
+}
+
+.mat-icon-button.color-warn {
+  color: #d32f2f; /* Couleur du bouton d'alerte */
+}
+/* Styles pour le bouton Ajouter */
+.add-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px; // Espace entre le bouton et le tableau
+}
+
 .add-button {
-    display: flex;
-    align-items: center;
+  width: 40px; // Largeur du bouton
+  height: 40px; // Hauteur du bouton
+  background-color: #00bcd4; // Couleur bleu siel
+  color: white; // Couleur du texte
+  border: none;
+  border-radius: 5px; // Bordure arrondie
+  cursor: pointer;
+
+  &:hover {
+      background-color: #00bcd4; // Couleur plus foncée au survol
   }
-  
-  .add-icon {
-    font-size: 40px; /* Ajustez la taille de l'icône selon vos besoins */
-    margin-left: 8px; /* Ajustez la marge gauche selon vos besoins */
+
+  mat-icon {
+      font-size: 24px;
+      color: white;
   }
-  .panel-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .search-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .search-input {
-    margin-right: 8px;
-    width: 300px; /* Ajustez la largeur selon vos besoins */
-  }
-  
-  .search-button {
-    border-radius: 50%;
-    height: 36px; /* Ajustez la hauteur selon vos besoins */
-  }
-  
-  .search-button .mat-icon {
-    font-size: 24px; /* Ajustez la taille de l'icône selon vos besoins */
-  }
-  
+}

@@ -1,53 +1,55 @@
 <div class="main-body">
-    <div class="panel-header">
-      <h2>Liste BonEntrée</h2>
-      
-      
-           
-      
-    </div>
-    <div class="search-container">
-      <mat-form-field class="search-input">
-        <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher...">
-      </mat-form-field>
-      <button mat-icon-button color="primary" (click)="addBonEntree()" aria-label="Ajouter client">
-        <mat-icon>add</mat-icon>
-      </button>
-     
-    </div>
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Date</th>
-            <th>Quantité</th>
-            <th>Fournisseur</th>
-            <th>Produit</th>
-            <!-- Ajoutez d'autres en-têtes si nécessaire -->
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let bonEntree of bonsEntree">
-            <td>{{ bonEntree.id }}</td>
-            <td>{{ bonEntree.date | date }}</td>
-            <td>{{ bonEntree.qte }}</td>
-            <td>{{ bonEntree.fournisseur?.name }}</td>
-            <td>{{ bonEntree.produit?.name }}</td>
-            <!-- Remplacez .name par le nom de la propriété appropriée dans vos modèles -->
-            <!-- Ajoutez d'autres colonnes si nécessaire -->
-            <td>
-              <button mat-icon-button color="primary" (click)="editBonEntree(bonEntree.id)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-icon-button color="warn" (click)="deleteBonEntree(bonEntree.id)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="panel-header">
+    <h2>Liste BonEntrée</h2>
   </div>
-  
+  <div class="search-container">
+   
+    <mat-form-field class="date-input">
+      <input matInput [matDatepicker]="pickerStart" placeholder="Date de début" [(ngModel)]="startDate">
+      <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+      <mat-datepicker #pickerStart></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="date-input">
+      <input matInput [matDatepicker]="pickerEnd" placeholder="Date de fin" [(ngModel)]="endDate">
+      <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+      <mat-datepicker #pickerEnd></mat-datepicker>
+    </mat-form-field>
+    <button mat-button color="primary" (click)="applyDateFilter()">Filtrer</button>
+    <button class="add-button" (click)="addBonEntree()" aria-label="Ajouter client">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Date</th>
+          <th>Quantité</th>
+          <th>Fournisseur</th>
+          <th>Chambre</th>
+          <th>Produit</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let bonEntree of filteredBonsEntree">
+          <td>{{ bonEntree.id }}</td>
+          <td>{{ bonEntree.date | date }}</td>
+          <td>{{ bonEntree.qte }}</td>
+          <td>{{ bonEntree.fournisseur?.name }}</td>
+          <td>{{ bonEntree.chambre?.name }}</td>
+          <td>{{ bonEntree.produit?.name }}</td>
+          <td>
+            <button mat-icon-button color="primary" (click)="editBonEntree(bonEntree.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteBonEntree(bonEntree.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
