@@ -25,6 +25,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { BonSortieService } from './service/bon-sortie.service';
+import { AuthServiceService } from './service/auth-service.service';
+
 
 
 
@@ -67,6 +69,7 @@ import { BonSortieService } from './service/bon-sortie.service';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    
    
    
    
@@ -90,7 +93,8 @@ import { BonSortieService } from './service/bon-sortie.service';
     SocietesService,
     BonEntrersService,
     ChambresService,
-    BonSortieService
+    BonSortieService,
+    AuthServiceService
   ], 
   bootstrap: [AppComponent]
 })

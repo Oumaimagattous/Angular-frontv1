@@ -35,6 +35,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { AddEditBonSortieComponent } from '../../bon-sorties/add-edit-bon-sortie/add-edit-bon-sortie.component';
+import { LoginComponent } from '../../login/login.component';
 
 
 @NgModule({
@@ -77,6 +78,7 @@ import { AddEditBonSortieComponent } from '../../bon-sorties/add-edit-bon-sortie
     AddEditBonEntrerComponent,
     BonSortiesComponent,
     AddEditBonSortieComponent,
+    LoginComponent,
 
    
     

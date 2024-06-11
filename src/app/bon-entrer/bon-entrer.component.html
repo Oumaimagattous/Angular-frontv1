@@ -23,7 +23,7 @@
     <table>
       <thead>
         <tr>
-          <th>ID</th>
+          
           <th>Date</th>
           <th>Quantité</th>
           <th>Fournisseur</th>
@@ -34,7 +34,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let bonEntree of filteredBonsEntree">
-          <td>{{ bonEntree.id }}</td>
+         
           <td>{{ bonEntree.date | date }}</td>
           <td>{{ bonEntree.qte }}</td>
           <td>{{ bonEntree.fournisseur?.name }}</td>

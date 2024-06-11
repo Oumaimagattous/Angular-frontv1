@@ -4,6 +4,7 @@ import { BonSortieService } from 'app/service/bon-sortie.service';
 import { AddEditBonSortieComponent } from './add-edit-bon-sortie/add-edit-bon-sortie.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthServiceService } from 'app/service/auth-service.service';
 
 @Component({
   selector: 'app-bon-sorties',
@@ -19,8 +20,9 @@ export class BonSortiesComponent implements OnInit {
 
   constructor(
     private bonsortieService: BonSortieService,
+    private authService: AuthServiceService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -28,16 +30,24 @@ export class BonSortiesComponent implements OnInit {
   }
 
   loadSorties() {
-    this.bonsortieService.getBonsSortie().subscribe(
-      (data: BonSortie[]) => {
-        this.sorties = data;
-        this.filteredBonsSortie = data; // Initialise la liste filtrée avec toutes les sorties
-      },
-      (error) => {
-        console.log('Une erreur s\'est produite lors du chargement des bons de sortie:', error);
-      }
-    );
+    const idSociete = this.authService.getIdSociete(); // Récupérer l'ID de la société
+    console.log('ID de la société:', idSociete);
+
+    if (idSociete) {
+      this.bonsortieService.getBonsSortie().subscribe(
+        (data: BonSortie[]) => {
+          this.sorties = data;
+          this.filteredBonsSortie = data.filter(bonSortie => bonSortie.idSociete === idSociete); // Filtrer les bons de sortie par ID de société
+        },
+        (error) => {
+          console.log('Une erreur s\'est produite lors du chargement des bons de sortie:', error);
+        }
+      );
+    } else {
+      console.error('ID de société non défini.');
+    }
   }
+
 
   applyDateFilter() {
     // Filtre les sorties en fonction de la date de début et de fin

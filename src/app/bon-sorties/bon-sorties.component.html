@@ -26,7 +26,7 @@
       <table>
         <thead>
           <tr>
-            <th>ID</th>
+           
             <th>Date</th>
             <th>Quantité</th>
             <th>Client</th>
@@ -37,7 +37,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let bonSortie of filteredBonsSortie">
-            <td>{{ bonSortie.id }}</td>
+            
             <td>{{ bonSortie.date | date }}</td>
             <td>{{ bonSortie.qte }}</td>
             <td>{{ bonSortie.client?.name }}</td>

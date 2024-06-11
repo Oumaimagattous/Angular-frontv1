@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Client } from 'app/Models/client';
 import { AddEditClientsComponent } from './add-edit-clients/add-edit-clients.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthServiceService } from 'app/service/auth-service.service';
 
 
 
@@ -18,11 +19,13 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ClientsComponent implements OnInit {
   clients: Client[] = [];
+  filteredClients: Client[] = [];
 
   @ViewChild(MatSnackBar) snackBar: MatSnackBar;
 
   constructor(
     private clientsService: ClientsService,
+    private authService: AuthServiceService,
     private router: Router,
     private dialog: MatDialog,
     
@@ -33,10 +36,19 @@ export class ClientsComponent implements OnInit {
   }
 
   loadClients(): void {
-    this.clientsService.getClientList().subscribe(clients => {
-      this.clients = clients;
-      
-    });
+    const idSociete = this.authService.getIdSociete();
+    console.log('ID de la société:', idSociete);
+
+    if (idSociete) {
+      this.clientsService.getClientList().subscribe(clients => {
+        console.log('Clients:', clients);
+        this.clients = clients;
+        this.filteredClients = this.clients.filter(client => client.idSociete === idSociete); // Filtrer les clients par ID de société
+        console.log('Filtered Clients:', this.filteredClients);
+      });
+    } else {
+      console.error('ID de société non défini.');
+    }
   }
 
   applyFilter(event: any) {

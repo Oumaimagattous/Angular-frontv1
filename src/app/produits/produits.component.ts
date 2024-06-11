@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Produit } from 'app/Models/produit';
 import { AddEditPtoduitsComponent } from './add-edit-ptoduits/add-edit-ptoduits.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthServiceService } from 'app/service/auth-service.service';
 
 @Component({
   selector: 'app-produits',
@@ -20,6 +21,7 @@ export class ProduitsComponent implements OnInit {
 
   constructor(
     private produitsService: ProduitsService,
+    private authService: AuthServiceService,
     private router: Router,
     private dialog: MatDialog
   ) {}
@@ -29,12 +31,25 @@ export class ProduitsComponent implements OnInit {
   }
 
   loadProduits(): void {
-    this.produitsService.getProduitList().subscribe(produits => {
-      this.produits = produits;
-      this.filteredProduits = produits;
-    });
-  }
+    const idSociete = this.authService.getIdSociete();
+    console.log('ID de la société:', idSociete);
 
+    if (idSociete) {
+      this.produitsService.getProduitList().subscribe(
+        (data) => {
+          console.log('Produits:', data);
+          this.produits = data;
+          this.filteredProduits = this.produits.filter(produit => produit.idSociete === idSociete); // Filtrer les produits par ID de société
+          console.log('Filtered Produits:', this.filteredProduits);
+        },
+        (error) => {
+          console.error('Erreur lors du chargement des produits : ', error);
+        }
+      );
+    } else {
+      console.error('ID de société non défini.');
+    }
+  }
   applyFilter(event: any): void {
     const searchTerm = event.target.value.toLowerCase();
     this.filteredProduits = this.produits.filter(produit => 

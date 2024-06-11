@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
+import { AuthServiceService } from 'app/service/auth-service.service';
 declare const $: any;
 declare interface RouteInfo {
     path: string;
@@ -9,7 +10,8 @@ declare interface RouteInfo {
 }
 export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-    { path: '/societes', title: 'Societés',  icon:'notifications', class: '' },
+    { path: '/login', title: 'Login',  icon: 'dashboard', class: '' },
+    //{ path: '/societes', title: 'Societés',  icon:'notifications', class: '' },
     { path: '/chambres', title: 'Chambres',  icon:'location_on', class: '' },
     { path: '/clients', title: 'Clients',  icon:'person', class: '' },
     { path: '/fournisseurs', title: 'Fournissuers',  icon:'person', class: '' },
@@ -29,7 +31,10 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor() { }
+  constructor(
+    private router: Router, // Injection du Router
+    private authService: AuthServiceService // Injection du service d'authentification
+  ) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
@@ -39,5 +44,9 @@ export class SidebarComponent implements OnInit {
           return false;
       }
       return true;
-  };
+  }
+  logout() {
+    this.authService.logout(); // Appel de la méthode de déconnexion du service d'authentification
+    this.router.navigate(['/login']); // Redirection vers la page de login
+  }
 }

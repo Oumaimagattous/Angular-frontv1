@@ -1,58 +1,55 @@
-:host {
-    display: block;
-    padding: 20px;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  h1 {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 20px;
-  }
-  
-  mat-form-field {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  
-  mat-dialog-content {
-    padding: 20px 0;
-  }
-  
-  mat-dialog-actions {
-    display: flex;
-    justify-content: flex-end;
-    padding-top: 10px;
-    
-    button {
-      margin-left: 10px;
+/* _client-form.component.scss */
+
+/* Styles for the panel header */
+h1 {
+  color: #00bcd4; // Primary color for the header text
+  margin-bottom: 20px; // Margin below the header
+}
+
+/* Styles for the main body */
+.main-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px; // Padding around the main body content
+  background-color: #f5f5f5; // Light gray background color
+  border-radius: 4px; // Rounded corners
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+}
+
+/* Styles for the form */
+form {
+  width: 100%; // Ensure the form takes up full width
+  max-width: 600px; // Maximum width for the form
+  display: flex;
+  flex-direction: column;
+  gap: 20px; // Space between form fields
+}
+
+/* Styles for the form fields */
+.mat-form-field {
+  width: 100%; // Ensure the form field takes up full width
+}
+
+/* Styles for the buttons */
+button {
+  &.mat-raised-button {
+    background-color: #00bcd4; // Primary color background
+    color: #fff; // White text color
+    margin-right: 10px; // Margin to the right for spacing
+    transition: background-color 0.3s ease; // Smooth transition for background color
+
+    &:hover {
+      background-color: darken(#00bcd4, 10%); // Darken the background color on hover
     }
   }
-  
-  .mat-form-field {
-    .mat-form-field-infix {
-      padding: 10px 0;
+
+  &.mat-button {
+    color: #00bcd4; // Primary color for text
+    transition: color 0.3s ease; // Smooth transition for color
+
+    &:hover {
+      color: darken(#00bcd4, 10%); // Darken the text color on hover
     }
   }
-  
-  .mat-button {
-    &.mat-primary {
-      background-color: #3f51b5;
-      color: white;
-  
-      &:hover {
-        background-color: #303f9f;
-      }
-    }
-  
-    &.mat-warn {
-      background-color: #f44336;
-      color: white;
-  
-      &:hover {
-        background-color: #d32f2f;
-      }
-    }
-  }
-  
+}

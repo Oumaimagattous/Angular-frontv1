@@ -19,15 +19,15 @@
       <table>
         <thead>
           <tr>
-            <th>ID</th>
+            
             <th>Nom</th>
             <th>IdSociete</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let chambre of chambres">
-            <td>{{ chambre.id }}</td>
+          <tr *ngFor="let chambre of filteredChambres">
+           
             <td>{{ chambre.name }}</td>
             <td>{{ chambre.idSociete }}</td>
             <td>

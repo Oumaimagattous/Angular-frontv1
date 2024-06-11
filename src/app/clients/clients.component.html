@@ -22,7 +22,7 @@
       <table>
         <thead>
           <tr>
-            <th>ID</th>
+           
             <th>Nom</th>
             <th>Adresse</th>
             <th>Type</th>
@@ -32,8 +32,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let client of clients">
-            <td>{{ client.id }}</td>
+          <tr *ngFor="let client of filteredClients">
+            
             <td>{{ client.name }}</td>
             <td>{{ client.adresse }}</td>
             <td>{{ client.type }}</td>

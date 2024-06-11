@@ -5,6 +5,7 @@ import { ChambresService } from 'app/service/chambres.service';
 import { Chambre } from '../Models/chambre';
 import { AddEditChambresComponent } from './add-edit-chambres/add-edit-chambres.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthServiceService } from 'app/service/auth-service.service';
 
 @Component({
   selector: 'app-chambres',
@@ -16,11 +17,13 @@ export class ChambresComponent implements OnInit {
  
 
   chambres: Chambre[] = [];
+  filteredChambres: Chambre[] = [];
   @ViewChild(MatSnackBar) snackBar: MatSnackBar;
 
   constructor(
     private chambreService: ChambresService,
     private router: Router,
+    private authService: AuthServiceService,
     private dialog: MatDialog
   ) {}
 
@@ -29,10 +32,19 @@ export class ChambresComponent implements OnInit {
   }
 
   loadChambres(): void {
-    this.chambreService.getChambreList().subscribe(chambres => {
-      this.chambres = chambres;
-     
-    });
+    const idSociete = this.authService.getIdSociete();
+    console.log('ID de la société:', idSociete);
+
+    if (idSociete) {
+      this.chambreService.getChambreList().subscribe(chambres => {
+        console.log('Chambres:', chambres);
+        this.chambres = chambres;
+        this.filteredChambres = this.chambres.filter(chambre => chambre.idSociete === idSociete); // Filtrer les chambres par ID de société
+        console.log('Filtered Chambres:', this.filteredChambres);
+      });
+    } else {
+      console.error('ID de société non défini.');
+    }
   }
 
   applyFilter(event: any) {

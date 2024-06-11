@@ -15,7 +15,9 @@ import { SocietesComponent } from '../../societes/societes.component';
 import { BonEntrerComponent } from '../../bon-entrer/bon-entrer.component';
 import { ChambresComponent } from '../../chambres/chambres.component';
 import { BonSortiesComponent } from '../../bon-sorties/bon-sorties.component';
-//import { ClientsComponent } from '../../clients/clients.component'; 
+import { LoginComponent } from '../../login/login.component';
+import { AuthGuard } from '../../auth.guard';
+
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -60,21 +62,23 @@ export const AdminLayoutRoutes: Routes = [
     //         component: UpgradeComponent
     //     }]
     // }
-    { path: 'dashboard',      component: DashboardComponent },
+    { path: 'dashboard',      component: DashboardComponent, canActivate: [AuthGuard]},
     { path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },
     { path: 'icons',          component: IconsComponent },
     { path: 'maps',           component: MapsComponent },
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
-    { path: 'clients',        component: ClientsComponent },
-    //{ path: 'clients/add-edit-clients',        component: AddEditClientsComponent },
-    { path: 'fournisseurs',        component: FournisseursComponent },
-    { path: 'produits',        component: ProduitsComponent },
-    { path: 'societes',        component: SocietesComponent },
-    { path: 'bon-entrer',        component: BonEntrerComponent },
-    { path: 'chambres',        component: ChambresComponent },
-    { path: 'bon-sorties',        component: BonSortiesComponent },
+    //{ path: 'clients',        component: ClientsComponent },
+  
+    { path: 'clients', component: ClientsComponent, canActivate: [AuthGuard] },
+    { path: 'fournisseurs', component: FournisseursComponent, canActivate: [AuthGuard] },
+    { path: 'produits', component: ProduitsComponent, canActivate: [AuthGuard] },
+    { path: 'societes', component: SocietesComponent, canActivate: [AuthGuard] },
+    { path: 'bon-entrer', component: BonEntrerComponent, canActivate: [AuthGuard] },
+    { path: 'chambres', component: ChambresComponent, canActivate: [AuthGuard] },
+    { path: 'bon-sorties', component: BonSortiesComponent, canActivate: [AuthGuard] },
+    { path: 'login', component: LoginComponent }
 
     
 

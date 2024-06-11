@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Fournisseur } from 'app/Models/fournisseur';
 import { AddEditFournissuresComponent } from './add-edit-fournissures/add-edit-fournissures.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthServiceService } from 'app/service/auth-service.service';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class FournisseursComponent implements OnInit {
     private fournisseursService: FournissursService,
     private router: Router,
     private dialog: MatDialog,
+    private authService: AuthServiceService
   ) {}
 
   ngOnInit(): void {
@@ -31,10 +33,17 @@ export class FournisseursComponent implements OnInit {
   }
 
   loadFournisseurs(): void {
-    this.fournisseursService.getFournisseurList().subscribe(fournisseurs => {
-      this.fournisseurs = fournisseurs;
-      this.filteredFournisseurs = fournisseurs;
-    });
+    const idSociete = this.authService.getIdSociete(); // Récupérer l'ID de la société
+    console.log('ID de la société:', idSociete);
+
+    if (idSociete) {
+      this.fournisseursService.getFournisseurList().subscribe(fournisseurs => {
+        this.fournisseurs = fournisseurs.filter(f => f.idSociete === idSociete); // Filtrer les fournisseurs par ID de société
+        this.filteredFournisseurs = this.fournisseurs;
+      });
+    } else {
+      console.error('ID de société non défini.');
+    }
   }
 
   applyFilter(event: any): void {
