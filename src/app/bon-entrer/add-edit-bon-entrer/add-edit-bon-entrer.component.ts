@@ -5,6 +5,7 @@ import { BonEntree } from 'app/Models/bon-entree';
 import { Chambre } from 'app/Models/chambre';
 import { Fournisseur } from 'app/Models/fournisseur';
 import { Produit } from 'app/Models/produit';
+import { AuthServiceService } from 'app/service/auth-service.service';
 import { BonEntrersService } from 'app/service/bon-entrers.service';
 import { ChambresService } from 'app/service/chambres.service';
 import { FournissursService } from 'app/service/fournissurs.service';
@@ -32,13 +33,18 @@ export class AddEditBonEntrerComponent implements OnInit {
     private bonEntreeService: BonEntrersService,
     private produitService: ProduitsService,
     private fournisseurService: FournissursService,
-    private chambreService: ChambresService
+    private chambreService: ChambresService,
+    private authService: AuthServiceService 
   ) {
     this.isEditMode = !!data.bonEntree;
     this.bonEntree = this.isEditMode ? { ...data.bonEntree } : { id: null, date: new Date(), qte: 0, idFournisseur: null, idProduit: null, idChambre: null, idSociete: null };
   }
 
   ngOnInit(): void {
+     // Récupérer l'ID de la société connectée depuis le service d'authentification
+     const idSociete = this.authService.getIdSociete();
+     this.bonEntree.idSociete = idSociete; // Définir l'ID de la société dans le bon d'entrée
+     
     this.loadProduits();
     this.loadFournisseurs();
     this.loadChambres();

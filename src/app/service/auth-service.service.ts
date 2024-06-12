@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
@@ -16,20 +16,15 @@ export class AuthServiceService {
 
  
 
-  login(email: string, password: string, idSociete: number): Observable<any> {
-    // Vérifiez si les données sont correctes avant de les envoyer
-    if (!email || !password || !idSociete) {
-      console.error("Email, password, or idSociete is missing.");
-      return;
-    }
-
-    return this._http.post(`${this.baseUrl}/login`, { email, password, idSociete });
+  login(email: string, password: string): Observable<any> {
+    return this._http.post(`${this.baseUrl}/login`, { email, password }).pipe(
+      tap((response: any) => {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('idSociete', response.idSociete); // Stocker l'ID de la société
+      })
+    );
   }
-  setIdSociete(id: number): void {
-    this.idSociete = id;
-    localStorage.setItem('idSociete', id.toString());
-  }
-
+  
   getIdSociete(): number | null {
     const id = localStorage.getItem('idSociete');
     return id ? parseInt(id, 10) : null;

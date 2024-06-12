@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Fournisseur } from 'app/Models/fournisseur';
+import { AuthServiceService } from 'app/service/auth-service.service';
 import { FournissursService } from 'app/service/fournissurs.service';
 
 @Component({
@@ -15,9 +16,16 @@ export class AddEditFournissuresComponent  {
   constructor(
     public dialogRef: MatDialogRef<AddEditFournissuresComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { fournisseur: Fournisseur },
+    private authService: AuthServiceService,
     private fournisseursService: FournissursService
   ) {
     this.fournisseur = data.fournisseur ? { ...data.fournisseur } : { id: null, name: '', adresse: '', idSociete: null };
+  }
+
+  ngOnInit(): void {
+    // Récupérer l'ID de la société connectée depuis le service d'authentification
+    const idSociete = this.authService.getIdSociete();
+    this.fournisseur.idSociete = idSociete; // Définir l'ID de la société dans le fournisseur
   }
 
   onSubmit(): void {

@@ -22,6 +22,7 @@ export class ProduitsService {
   getProduitList(): Observable<any> {
     return this._http.get(`${this.baseUrl}`);
   }
+  
 
   getProduit(id: number): Observable<any> {
     return this._http.get(`${this.baseUrl}/${id}`);

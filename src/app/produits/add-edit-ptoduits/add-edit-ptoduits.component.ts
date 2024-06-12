@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Produit } from 'app/Models/produit';
+import { AuthServiceService } from 'app/service/auth-service.service';
 import { ProduitsService } from 'app/service/produits.service';
 
 @Component({
@@ -16,9 +17,16 @@ export class AddEditPtoduitsComponent {
   constructor(
     public dialogRef: MatDialogRef<AddEditPtoduitsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { produit: Produit },
+    private authService: AuthServiceService,
     private produitsService: ProduitsService
   ) {
     this.produit = data.produit ? { ...data.produit } : { id: null, name: '', idSociete: null };
+  }
+  
+  ngOnInit(): void {
+    // Récupérer l'ID de la société connectée depuis le service d'authentification
+    const idSociete = this.authService.getIdSociete();
+    this.produit.idSociete = idSociete; // Définir l'ID de la société dans le produit
   }
 
   onSubmit(): void {

@@ -19,7 +19,7 @@
           <tr>
            
             <th>Nom</th>
-            <th>ID Societe</th>
+            
             <th>Actions</th>
           </tr>
         </thead>
@@ -27,7 +27,7 @@
           <tr *ngFor="let produit of filteredProduits">
            
             <td>{{ produit.name }}</td>
-            <td>{{ produit.idSociete }}</td>
+           
             <td>
               <button mat-icon-button color="primary" (click)="editProduit(produit.id)">
                 <mat-icon>edit</mat-icon>

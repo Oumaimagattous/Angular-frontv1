@@ -21,7 +21,7 @@
           <tr>
             
             <th>Nom</th>
-            <th>IdSociete</th>
+            
             <th>Actions</th>
           </tr>
         </thead>
@@ -29,7 +29,7 @@
           <tr *ngFor="let chambre of filteredChambres">
            
             <td>{{ chambre.name }}</td>
-            <td>{{ chambre.idSociete }}</td>
+            
             <td>
               <button mat-icon-button color="primary" (click)="editChambre(chambre.id)">
                 <mat-icon>edit</mat-icon>

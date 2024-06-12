@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Client } from 'app/Models/client';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { AuthServiceService } from 'app/service/auth-service.service';
 
 
 @Component({
@@ -19,13 +20,18 @@ export class AddEditClientsComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AddEditClientsComponent>,
+    private authService: AuthServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.isEditMode = !!data.client;
     this.client = this.isEditMode ? { ...data.client } : { id: null, name: '', adresse: '', type: '', cin: '', idSociete: null };
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Récupérer l'ID de la société connectée depuis le service d'authentification
+    const idSociete = this.authService.getIdSociete();
+    this.client.idSociete = idSociete; // Définir l'ID de la société dans le client
+  }
 
   onSubmit(form: NgForm): void {
     if (form.valid) {

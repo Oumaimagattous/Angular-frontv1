@@ -9,6 +9,7 @@ import { ProduitsService } from 'app/service/produits.service';
 import { ChambresService } from 'app/service/chambres.service';
 import { Client } from 'app/Models/client';
 import { ClientsService } from 'app/service/clients.service';
+import { AuthServiceService } from 'app/service/auth-service.service';
 
 @Component({
   selector: 'app-add-edit-bon-sortie',
@@ -29,13 +30,19 @@ export class AddEditBonSortieComponent implements OnInit {
     private bonSortieService: BonSortieService,
     private produitService: ProduitsService,
     private chambreService: ChambresService,
-    private clientService: ClientsService 
+    private clientService: ClientsService ,
+    private authService: AuthServiceService
   ) {
     this.isEditMode = !!data.bonSortie;
     this.bonSortie = this.isEditMode ? { ...data.bonSortie } : { id: null, date: new Date(), qte: 0, idProduit: null, idChambre: null, idClient: null, idSociete: null };
   }
 
   ngOnInit(): void {
+
+    // Récupérer l'ID de la société connectée depuis le service d'authentification
+    const idSociete = this.authService.getIdSociete();
+    this.bonSortie.idSociete = idSociete; // Définir l'ID de la société dans le bon de sortie
+    
     this.loadProduits();
     this.loadChambres();
     this.loadClients(); 

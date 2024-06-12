@@ -1,18 +1,13 @@
-<h1 mat-dialog-title>{{ produit.id ? 'Éditer Produit' : 'Ajouter Produit' }}</h1>
-<div mat-dialog-content>
+<h1 mat-dialog-title class="dialog-title">{{ produit.id ? 'Éditer Produit' : 'Ajouter Produit' }}</h1>
+<div mat-dialog-content class="dialog-content">
   <form>
-    <mat-form-field>
+    <mat-form-field appearance="outline" class="form-field">
       <mat-label>Nom</mat-label>
       <input matInput [(ngModel)]="produit.name" name="name" required>
     </mat-form-field>
-    <mat-form-field>
-      <mat-label>ID Société</mat-label>
-      <input matInput [(ngModel)]="produit.idSociete" name="idSociete">
-    </mat-form-field>
   </form>
 </div>
-<div mat-dialog-actions>
-  
-  <button mat-button color="primary" (click)="onSubmit()">Sauvegarder</button>
-  <button mat-button (click)="onCancel()">Annuler</button>
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-button class="save-button" color="primary" (click)="onSubmit()">Sauvegarder</button>
+  <button mat-button class="cancel-button" (click)="onCancel()">Annuler</button>
 </div>
