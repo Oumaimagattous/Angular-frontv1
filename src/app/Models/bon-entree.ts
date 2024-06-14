@@ -6,4 +6,6 @@ export interface BonEntree {
     idProduit?: number;
     idChambre?: number;
     idSociete?: number;
+    numeroBonEntree: number; 
+    nombreCasier: number;
 }

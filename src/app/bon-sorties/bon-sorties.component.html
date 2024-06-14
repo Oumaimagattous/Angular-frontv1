@@ -14,6 +14,9 @@
         <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
         <mat-datepicker #pickerEnd></mat-datepicker>
       </mat-form-field>
+
+     
+
       <button mat-button color="primary" (click)="applyDateFilter()">Filtrer</button>
       <button class="add-button" (click)="addBonSortie()" aria-label="Ajouter client">
         <mat-icon>add</mat-icon>
@@ -32,6 +35,9 @@
             <th>Client</th>
             <th>Chambre</th>
             <th>Produit</th>
+            <th>Fournisseur</th>
+          
+            <th>Numéro-BonSortie</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -43,12 +49,18 @@
             <td>{{ bonSortie.client?.name }}</td>
             <td>{{ bonSortie.chambre?.name }}</td>
             <td>{{ bonSortie.produit?.name }}</td>
+            <td>{{ bonSortie.fournisseur?.name }}</td>
+           
+            <td>{{ bonSortie.numeroBonSortie }}</td>
             <td>
               <button mat-icon-button color="primary" (click)="editBonSortie(bonSortie.id)">
                 <mat-icon>edit</mat-icon>
               </button>
               <button mat-icon-button color="warn" (click)="deletebonSortie(bonSortie.id)">
                 <mat-icon>delete</mat-icon>
+              </button>
+              <button mat-icon-button color="accent" (click)="printBonSortie(bonSortie)">
+                <mat-icon>picture_as_pdf</mat-icon>
               </button>
             </td>
           </tr>

@@ -1,14 +1,50 @@
 <h1 mat-dialog-title class="dialog-title">{{ fournisseur.id ? 'Éditer Fournisseur' : 'Ajouter Fournisseur' }}</h1>
 <div mat-dialog-content class="dialog-content">
-  <form>
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Nom</mat-label>
-      <input matInput [(ngModel)]="fournisseur.name" name="name" required>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Adresse</mat-label>
-      <input matInput [(ngModel)]="fournisseur.adresse" name="adresse" required>
-    </mat-form-field>
+  <form class="form-container">
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Nom Commercial</mat-label>
+        <input matInput [(ngModel)]="fournisseur.nomCommercial" name="nomCommercial">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>MF</mat-label>
+        <input matInput [(ngModel)]="fournisseur.mf" name="mf">
+      </mat-form-field>
+    </div>
+    
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Nom</mat-label>
+        <input matInput [(ngModel)]="fournisseur.name" name="name" required>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>CIN</mat-label>
+        <input matInput [(ngModel)]="fournisseur.cin" name="cin">
+      </mat-form-field>
+    </div>
+    
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Date d'émission</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="fournisseur.dateEmission" name="dateEmission">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Téléphone</mat-label>
+        <input matInput [(ngModel)]="fournisseur.telephone" name="telephone">
+      </mat-form-field>
+    </div>
+    
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Adresse</mat-label>
+        <input matInput [(ngModel)]="fournisseur.adresse" name="adresse" required>
+      </mat-form-field>
+    </div>
   </form>
 </div>
 <div mat-dialog-actions class="dialog-actions">

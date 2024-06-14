@@ -18,6 +18,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/produits', title: 'Produits',  icon:'bubble_chart', class: '' },
     { path: '/bon-entrer', title: 'BonEntrer',  icon:'content_paste', class: '' },
     { path: '/bon-sorties', title: 'BonSortie',  icon:'content_paste', class: '' },
+    { path: '/journal-stock', title: 'JournalStock',  icon:'content_paste', class: '' },
     
     
 

@@ -6,6 +6,13 @@ import { BonEntree } from 'app/Models/bon-entree';
 import { AddEditBonEntrerComponent } from './add-edit-bon-entrer/add-edit-bon-entrer.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthServiceService } from 'app/service/auth-service.service';
+import { SocietesService } from 'app/service/societes.service';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import { FournissursService } from 'app/service/fournissurs.service';
+import { ClientsService } from 'app/service/clients.service';
+import { ProduitsService } from 'app/service/produits.service';
+import { ChambresService } from 'app/service/chambres.service';
 
 @Component({
   selector: 'app-bon-entrer',
@@ -24,6 +31,10 @@ export class BonEntrerComponent implements OnInit {
   constructor(
     private bonEntreeService: BonEntrersService,
     private authService: AuthServiceService, 
+    private societeService: SocietesService,
+    private fournisseurService: FournissursService,
+    private chambreService: ChambresService,
+    private produitService: ProduitsService,
     private router: Router,
 
     private dialog: MatDialog
@@ -99,4 +110,105 @@ export class BonEntrerComponent implements OnInit {
       });
     }
   }
+  async printBonEntrer(bonEntree: BonEntree): Promise<void> {
+    const doc = new jsPDF();
+
+    // Récupérer la date du jour
+    const currentDate = new Date().toLocaleDateString();
+
+    // Titre du bon de sortie
+    const title = `Bon d'Entrer numéro: ${bonEntree.numeroBonEntree}`;
+
+    // Informations sur la société (partie fixe)
+    const societeId = this.authService.getIdSociete(); // Supposons que vous avez une méthode dans votre service AuthService pour obtenir l'ID de la société
+    const societe = await this.societeService.getSociete(societeId).toPromise();
+    const societeInfo = `
+      Société: ${societe.name}
+      Responsable: ${societe.responsable}
+      Adresse: ${societe.adresse}
+      Téléphone: ${societe.telephone}
+      Email: ${societe.email}
+    `;
+
+    // Informations sur le fournisseur
+    const fournisseur = await this.fournisseurService.getFournisseur(bonEntree.idFournisseur).toPromise();
+    const fournisseurInfo = `
+      Fournisseur: ${fournisseur.nomCommercial}
+      Nom : ${fournisseur.name}
+      Adresse: ${fournisseur.adresse}
+      Téléphone: ${fournisseur.telephone}
+      CIN : ${fournisseur.cin}
+    `;
+
+    // Informations sur le bon de sortie
+    const produit = await this.produitService.getProduit(bonEntree.idProduit).toPromise();
+    const chambre = await this.chambreService.getChambre(bonEntree.idChambre).toPromise();
+
+    const bonEntrerInfo = `
+      Produit: ${produit.name}
+      Quantité (Kg): ${bonEntree.qte}
+       Nombre de Casier: ${bonEntree.nombreCasier}
+      Numéro Bon de Entrer: ${bonEntree.numeroBonEntree}
+      Chambre: ${chambre.name}
+      Date: ${new Date(bonEntree.date).toLocaleDateString()}
+    `;
+
+    // Définir les marges
+    const margin = 10;
+
+    // Largeur et hauteur de la page
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    // Ajouter les informations au document PDF
+    doc.setFontSize(18);
+    doc.text(title, pageWidth / 2, margin, { align: 'center' });
+
+    // Ajouter la date du jour aux extrémités de la page
+    doc.setFontSize(10);
+   // doc.text(currentDate, margin, margin);
+    doc.text(currentDate, pageWidth - margin, margin, { align: 'right' });
+
+    // Dessiner un cadre pour chaque partie
+    const lineHeight = 6;
+    let y = margin + lineHeight;
+
+    doc.setFont('helvetica', 'bold'); // Mettre en gras
+    doc.setFontSize(12);
+    doc.text('Informations sur la Société', margin, y);
+    y += lineHeight;
+    doc.rect(margin, y, pageWidth - 2 * margin, 40); // Cadre pour les informations sur la société
+    doc.setFont('helvetica', 'normal'); // Revenir à la police normale
+    doc.setFontSize(10);
+    doc.text(societeInfo, margin + 5, y + 5);
+
+    y += 50; // Espace supplémentaire
+
+    doc.setFont('helvetica', 'bold'); // Mettre en gras
+    doc.setFontSize(12);
+    doc.text('Informations sur le Fournisseur', margin, y);
+    y += lineHeight;
+    doc.rect(margin, y, pageWidth - 2 * margin, 40); // Cadre pour les informations sur le fournisseur
+    doc.setFont('helvetica', 'normal'); // Revenir à la police normale
+    doc.setFontSize(10);
+    doc.text(fournisseurInfo, margin + 5, y + 5);
+
+    y += 50; // Espace supplémentaire
+
+    doc.setFont('helvetica', 'bold'); // Mettre en gras
+    doc.setFontSize(12);
+    doc.text('Informations du Bon Entrer', margin, y);
+    y += lineHeight;
+    doc.rect(margin, y, pageWidth - 2 * margin, 50); // Cadre pour les informations sur le bon de sortie
+    doc.setFont('helvetica', 'normal'); // Revenir à la police normale
+    doc.setFontSize(10);
+    doc.text(bonEntrerInfo, margin + 5, y + 5);
+
+    // Afficher la fenêtre d'impression
+    doc.output('dataurlnewwindow');
+}
+
+
+
+
 }

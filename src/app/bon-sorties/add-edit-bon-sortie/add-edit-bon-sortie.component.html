@@ -1,11 +1,21 @@
 <h2 class="dialog-title">{{ isEditMode ? 'Modifier Bon de Sortie' : 'Ajouter Bon de Sortie' }}</h2>
 <form #bonSortieForm="ngForm" (ngSubmit)="onSubmit(bonSortieForm)" class="dialog-form">
   
+
+
+
   <mat-form-field appearance="outline" class="form-field">
-    <mat-label>Date</mat-label>
-    <input matInput [matDatepicker]="picker" name="date" [(ngModel)]="bonSortie.date" required>
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
+    <mat-label> Fournisseur</mat-label>
+    <mat-select name="idFournisseur" [(ngModel)]="bonSortie.idFournisseur">
+      <mat-option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur.id">{{ fournisseur.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label> Produit</mat-label>
+    <mat-select name="idProduit" [(ngModel)]="bonSortie.idProduit" required>
+      <mat-option *ngFor="let produit of produits" [value]="produit.id">{{ produit.name }}</mat-option>
+    </mat-select>
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="form-field">
@@ -14,24 +24,45 @@
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="form-field">
-    <mat-label>Nom Produit</mat-label>
-    <mat-select name="idProduit" [(ngModel)]="bonSortie.idProduit" required>
-      <mat-option *ngFor="let produit of produits" [value]="produit.id">{{ produit.name }}</mat-option>
+    <mat-label>  Client</mat-label>
+    <mat-select name="idClient" [(ngModel)]="bonSortie.idClient" required>
+      <mat-option *ngFor="let client of clients" [value]="client.id">{{ client.name }}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="form-field">
-    <mat-label>Nom du Chambre</mat-label>
+    <mat-label> Chambre</mat-label>
     <mat-select name="idChambre" [(ngModel)]="bonSortie.idChambre" required>
       <mat-option *ngFor="let chambre of chambres" [value]="chambre.id">{{ chambre.name }}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="form-field">
-    <mat-label>Nom du Client</mat-label>
-    <mat-select name="idClient" [(ngModel)]="bonSortie.idClient" required>
-      <mat-option *ngFor="let client of clients" [value]="client.id">{{ client.name }}</mat-option>
-    </mat-select>
+    <mat-label>Date</mat-label>
+    <input matInput [matDatepicker]="picker" name="date" [(ngModel)]="bonSortie.date" required>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+ 
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Matricule</mat-label>
+    <input matInput name="matricule" [(ngModel)]="bonSortie.matricule">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Chauffeur</mat-label>
+    <input matInput name="chauffeur" [(ngModel)]="bonSortie.chauffeur">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>CIN Chauffeur</mat-label>
+    <input matInput name="cinChauffeur" [(ngModel)]="bonSortie.cinChauffeur">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Numéro BonSortie</mat-label>
+    <input matInput name="numeroBonSortie" [(ngModel)]="bonSortie.numeroBonSortie" readonly>
   </mat-form-field>
   
   <div class="dialog-actions">

@@ -25,4 +25,8 @@ export class ChambresService {
   deleteChambre(id: number): Observable<any> {
     return this._http.delete(`${this.baseUrl}/${id}`);
   }
+  getChambre(id: number): Observable<any> {
+    return this._http.get(`${this.baseUrl}/${id}`);
+  }
+
 }

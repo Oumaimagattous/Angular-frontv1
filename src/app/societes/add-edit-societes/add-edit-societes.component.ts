@@ -10,7 +10,7 @@ import { SocietesService } from 'app/service/societes.service';
 })
 export class AddEditSocietesComponent implements OnInit {
 
-  societe: Societe = { id: 0, name: '', adresse: '', mf: '' };
+  societe: Societe = { id: 0, name: '', adresse: '', mf: '', telephone: '', responsable: '', email: '' };
 
   constructor(
     public dialogRef: MatDialogRef<AddEditSocietesComponent>,

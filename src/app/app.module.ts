@@ -26,6 +26,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { BonSortieService } from './service/bon-sortie.service';
 import { AuthServiceService } from './service/auth-service.service';
+import { JournalStockService } from './service/journal-stock.service';
+
 
 
 
@@ -69,6 +71,7 @@ import { AuthServiceService } from './service/auth-service.service';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+   
     
    
    
@@ -94,7 +97,8 @@ import { AuthServiceService } from './service/auth-service.service';
     BonEntrersService,
     ChambresService,
     BonSortieService,
-    AuthServiceService
+    AuthServiceService,
+    JournalStockService
   ], 
   bootstrap: [AppComponent]
 })

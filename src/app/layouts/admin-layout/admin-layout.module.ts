@@ -36,6 +36,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { AddEditBonSortieComponent } from '../../bon-sorties/add-edit-bon-sortie/add-edit-bon-sortie.component';
 import { LoginComponent } from '../../login/login.component';
+import { JournalStockComponent } from '../../journal-stock/journal-stock.component';
 
 
 @NgModule({
@@ -78,6 +79,7 @@ import { LoginComponent } from '../../login/login.component';
     AddEditBonEntrerComponent,
     BonSortiesComponent,
     AddEditBonSortieComponent,
+    JournalStockComponent,
     LoginComponent,
 
    

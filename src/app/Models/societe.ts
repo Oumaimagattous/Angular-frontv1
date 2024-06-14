@@ -3,4 +3,7 @@ export interface Societe {
     name: string;
     adresse: string;
     mf: string;
+    telephone: string; 
+    responsable: string; 
+    email: string; 
 }

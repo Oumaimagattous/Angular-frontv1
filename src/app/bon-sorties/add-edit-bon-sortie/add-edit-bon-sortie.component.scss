@@ -11,27 +11,29 @@ $shadow-color: rgba(0, 0, 0, 0.1);
 // Styles globaux
 .dialog-title {
   color: $primary-dark-color;
-  font-size: 18px; // Réduit la taille de la police
+  font-size: 16px; // Réduit la taille de la police
   font-weight: 500;
-  margin-bottom: 10px; // Réduit l'espace en bas
+  margin-bottom: 8px; // Réduit l'espace en bas
   text-align: center;
   border-bottom: 1px solid $border-color;
-  padding-bottom: 5px; // Réduit le padding en bas
+  padding-bottom: 4px; // Réduit le padding en bas
 }
 
 .dialog-form {
   background-color: $dialog-background-color;
-  padding: 10px 15px; // Réduit le padding
+  padding: 8px 10px; // Réduit le padding
   border-radius: 8px;
   box-shadow: 0 4px 10px $shadow-color;
-  max-width: 350px; // Réduit la largeur maximale
+  max-width: 600px;  // Réduit la largeur maximale
+  max-height: 400px; // Ajoute une hauteur maximale
+  overflow-y: auto; // Permet le défilement si le formulaire est trop grand
   margin: auto;
 }
 
 .form-field {
   width: 100%;
-  margin-bottom: 10px; // Réduit l'espace en bas
-  
+  margin-bottom: 6px; // Réduit l'espace en bas
+
   mat-label {
     color: $primary-dark-color;
     font-weight: 500;
@@ -42,26 +44,25 @@ $shadow-color: rgba(0, 0, 0, 0.1);
     border-color: $primary-color;
   }
 
-  input {
+  input, mat-select {
     font-size: 12px; // Réduit la taille de la police
-    padding: 6px; // Réduit le padding
+    padding: 4px; // Réduit le padding
     background-color: transparent;
   }
 }
 
 .dialog-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between; // Aligner les boutons de chaque côté
   padding: 8px 0;
   border-top: 1px solid $border-color;
-  margin-top: 10px; // Réduit l'espace en haut
+  margin-top: 6px; // Réduit l'espace en haut
 
   button {
     font-size: 12px; // Réduit la taille de la police
     font-weight: 500;
-    padding: 6px 12px; // Réduit le padding
+    padding: 4px 6px; // Réduit le padding
     border-radius: 4px;
-    margin-left: 6px; // Réduit l'espace entre les boutons
     transition: background-color 0.3s ease;
 
     &.save-button, &.imprimer-button {

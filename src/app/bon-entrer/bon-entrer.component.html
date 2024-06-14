@@ -29,6 +29,8 @@
           <th>Fournisseur</th>
           <th>Chambre</th>
           <th>Produit</th>
+          <th>NumBonEntrer</th>
+          <th>NombreCasier</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -40,12 +42,17 @@
           <td>{{ bonEntree.fournisseur?.name }}</td>
           <td>{{ bonEntree.chambre?.name }}</td>
           <td>{{ bonEntree.produit?.name }}</td>
+          <td>{{ bonEntree.numeroBonEntree }}</td> 
+          <td>{{ bonEntree.nombreCasier }}</td> 
           <td>
             <button mat-icon-button color="primary" (click)="editBonEntree(bonEntree.id)">
               <mat-icon>edit</mat-icon>
             </button>
             <button mat-icon-button color="warn" (click)="deleteBonEntree(bonEntree.id)">
               <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button color="accent" (click)="printBonEntrer(bonEntree)">
+              <mat-icon>picture_as_pdf</mat-icon>
             </button>
           </td>
         </tr>

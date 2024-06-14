@@ -17,6 +17,7 @@ import { ChambresComponent } from '../../chambres/chambres.component';
 import { BonSortiesComponent } from '../../bon-sorties/bon-sorties.component';
 import { LoginComponent } from '../../login/login.component';
 import { AuthGuard } from '../../auth.guard';
+import { JournalStockComponent } from '../../journal-stock/journal-stock.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -78,7 +79,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'bon-entrer', component: BonEntrerComponent, canActivate: [AuthGuard] },
     { path: 'chambres', component: ChambresComponent, canActivate: [AuthGuard] },
     { path: 'bon-sorties', component: BonSortiesComponent, canActivate: [AuthGuard] },
+    { path: 'journal-stock', component: JournalStockComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent }
+
 
     
 

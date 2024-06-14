@@ -20,6 +20,10 @@
                   <th>Nom</th>
                   <th>Adresse</th>
                   <th>MF</th>
+                  <th>Telephone</th>
+                  <th>Responsable</th>
+                  <th>Email</th>
+
                   <th>Actions</th>
               </tr>
           </thead>
@@ -29,6 +33,9 @@
                   <td>{{ societe.name }}</td>
                   <td>{{ societe.adresse }}</td>
                   <td>{{ societe.mf }}</td>
+                  <td>{{ societe.telephone }}</td> 
+                 <td>{{ societe.responsable }}</td> 
+                 <td>{{ societe.email }}</td>
                   <td>
                       <button mat-icon-button color="primary" (click)="navigateToEditSociete(societe.id)">
                           <mat-icon>edit</mat-icon>

@@ -24,7 +24,7 @@ export class AddEditClientsComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.isEditMode = !!data.client;
-    this.client = this.isEditMode ? { ...data.client } : { id: null, name: '', adresse: '', type: '', cin: '', idSociete: null };
+    this.client = this.isEditMode ? { ...data.client } : { id: null, name: '', adresse: '', type: '', cin: '', mf: '', telephone: '', dateEmission: null, idSociete: null };
   }
 
   ngOnInit(): void {

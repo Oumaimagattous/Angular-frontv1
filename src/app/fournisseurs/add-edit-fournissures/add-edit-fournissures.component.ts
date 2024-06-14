@@ -19,7 +19,19 @@ export class AddEditFournissuresComponent  {
     private authService: AuthServiceService,
     private fournisseursService: FournissursService
   ) {
-    this.fournisseur = data.fournisseur ? { ...data.fournisseur } : { id: null, name: '', adresse: '', idSociete: null };
+    this.fournisseur = data.fournisseur ? { 
+      ...data.fournisseur 
+    } : { 
+      id: null, 
+      name: '', 
+      adresse: '', 
+      nomCommercial: '',
+      cin: '',
+      dateEmission: null,
+      telephone: '',
+      mf: '',
+      idSociete: null 
+    };
   }
 
   ngOnInit(): void {

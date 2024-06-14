@@ -1,24 +1,46 @@
-<h2 class="dialog-title">{{isEditMode ? 'Modifier Client' : 'Ajouter Client'}}</h2>
+<h2 class="dialog-title">{{ isEditMode ? 'Modifier Client' : 'Ajouter Client' }}</h2>
 <form #clientForm="ngForm" (ngSubmit)="onSubmit(clientForm)" class="dialog-content">
   <mat-form-field appearance="outline" class="form-field">
     <mat-label>Nom</mat-label>
     <input matInput name="name" [(ngModel)]="client.name" required>
   </mat-form-field>
-  <mat-form-field appearance="outline" class="form-field">
-    <mat-label>Adresse</mat-label>
-    <input matInput name="adresse" [(ngModel)]="client.adresse" required>
-  </mat-form-field>
+
   <mat-form-field appearance="outline" class="form-field">
     <mat-label>Type</mat-label>
     <input matInput name="type" [(ngModel)]="client.type" required>
   </mat-form-field>
+
+
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>MF</mat-label>
+    <input matInput name="mf" [(ngModel)]="client.mf">
+  </mat-form-field>
+ 
   <mat-form-field appearance="outline" class="form-field">
     <mat-label>CIN</mat-label>
     <input matInput name="cin" [(ngModel)]="client.cin" required>
   </mat-form-field>
-  
+
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Date d'émission</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="client.dateEmission" name="dateEmission">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+ 
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Téléphone</mat-label>
+    <input matInput name="telephone" [(ngModel)]="client.telephone">
+  </mat-form-field>
+ 
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Adresse</mat-label>
+    <input matInput name="adresse" [(ngModel)]="client.adresse" required>
+  </mat-form-field>
+
   <div class="dialog-actions">
-    <button mat-raised-button class="save-button" type="submit">{{isEditMode ? 'Modifier' : 'Ajouter'}}</button>
+    <button mat-raised-button class="save-button" type="submit">{{ isEditMode ? 'Modifier' : 'Ajouter' }}</button>
     <button mat-button class="cancel-button" (click)="onCancel()">Annuler</button>
   </div>
 </form>

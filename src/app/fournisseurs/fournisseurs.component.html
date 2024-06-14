@@ -17,18 +17,28 @@
       <table>
         <thead>
           <tr>
-           
-            <th>Nom</th>
-            <th>Adresse</th>
-            
-            <th>Actions</th>
+          
+          <th>Nom Commercial</th>
+          <th>MF</th>
+          <th>Nom</th>
+          <th>CIN</th>
+          <th>Date Emission</th>
+          <th>Téléphone</th>
+          <th>Adresse</th>
+          <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let fournisseur of filteredFournisseurs">
             
+            <td>{{ fournisseur.nomCommercial }}</td>
+            <td>{{ fournisseur.mf }}</td>
             <td>{{ fournisseur.name }}</td>
+            <td>{{ fournisseur.cin }}</td>
+            <td>{{ fournisseur.dateEmission | date }}</td>
+            <td>{{ fournisseur.telephone }}</td>
             <td>{{ fournisseur.adresse }}</td>
+
            
             <td>
               <button mat-icon-button color="primary" (click)="navigateToEditFournisseur(fournisseur.id)">

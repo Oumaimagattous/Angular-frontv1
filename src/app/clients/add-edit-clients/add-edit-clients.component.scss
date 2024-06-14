@@ -13,47 +13,61 @@ body {
   font-family: 'Roboto', sans-serif;
   background-color: $background-color;
   color: $text-color;
+  margin: 0; // Supprime la marge par défaut du corps
+  padding: 16px;  // Ajoute un peu de padding
 }
 
 // En-tête du dialogue
 .dialog-title {
   color: $primary-dark-color;
-  font-size: 20px;
+  font-size: 24px; // Augmentation de la taille de police
   font-weight: 500;
-  margin-bottom: 15px;
+  margin-bottom: 16px; // Augmentation de la marge
   text-align: center;
   border-bottom: 1px solid $border-color;
-  padding-bottom: 8px;
+  padding-bottom: 12px;
 }
 
 // Contenu du dialogue
 .dialog-content {
   background-color: $dialog-background-color;
-  padding: 15px 25px;
+  padding: 24px 32px; // Augmentation du padding
   border-radius: 8px;
-  box-shadow: 0 4px 10px $shadow-color;
-  max-width: 400px;
+  box-shadow: 0 4px 12px $shadow-color;
+  max-width: 600px; // Augmentation de la largeur maximale
   margin: auto;
+  
+  display: flex; // Ajout de flex
+  flex-direction: column; // Changer la direction en colonne
+  max-height: 400px; // Augmentation de la hauteur maximale
+  overflow-y: auto; // Ajout du défilement vertical
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row {
+  display: flex;
+  margin-bottom: 16px; // Augmentation de l'espace entre les lignes
 }
 
 .form-field {
+  flex: 1;
+  margin-right: 16px; // Augmentation de l'espace entre les champs
+}
+
+.form-field:last-child {
+  margin-right: 0; // Pas de marge à droite pour le dernier champ
+}
+
+.mat-form-field {
   width: 100%;
-  margin-bottom: 15px;
-  
-  mat-label {
-    color: $primary-dark-color;
-    font-weight: 500;
-  }
+}
 
-  .mat-form-field-outline {
-    border-color: $primary-color;
-  }
-
-  input {
-    font-size: 14px;
-    padding: 8px;
-    background-color: transparent;
-  }
+.mat-datepicker-toggle {
+  margin-top: 8px; // Ajustement pour le sélecteur de date
 }
 
 // Actions du dialogue
@@ -62,12 +76,12 @@ body {
   justify-content: flex-end;
   padding: 8px 0;
   border-top: 1px solid $border-color;
-  margin-top: 15px;
+  margin-top: 16px; // Augmentation de la marge
 
   button {
-    font-size: 14px;
+    font-size: 14px; // Augmentation de la taille de police
     font-weight: 500;
-    padding: 8px 16px;
+    padding: 8px 16px; // Augmentation du padding
     border-radius: 4px;
     margin-left: 8px;
     transition: background-color 0.3s ease;

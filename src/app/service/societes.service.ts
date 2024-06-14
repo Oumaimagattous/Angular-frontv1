@@ -22,6 +22,11 @@ export class SocietesService {
     return this._http.get(`${this.baseUrl}`);
   }
 
+  // Nouvelle méthode pour récupérer les informations de la société connectée
+  getCurrentSociete(): Observable<any> {
+    return this._http.get(`${this.baseUrl}/current`);
+  }
+
   getSociete(id: number): Observable<any> {
     return this._http.get(`${this.baseUrl}/${id}`);
   }

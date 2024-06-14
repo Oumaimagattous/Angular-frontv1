@@ -6,4 +6,9 @@ export interface BonSortie {
     idProduit?: number;
     idChambre?: number;
     idSociete?: number;
+    idFournisseur?: number;
+    matricule: string;
+    chauffeur: string;
+    cinChauffeur: string;
+    numeroBonSortie: number;
 }

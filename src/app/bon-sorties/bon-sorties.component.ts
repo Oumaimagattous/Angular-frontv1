@@ -5,7 +5,13 @@ import { AddEditBonSortieComponent } from './add-edit-bon-sortie/add-edit-bon-so
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthServiceService } from 'app/service/auth-service.service';
-
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import { ClientsService } from 'app/service/clients.service';
+import { ProduitsService } from 'app/service/produits.service';
+import { ChambresService } from 'app/service/chambres.service';
+import { FournissursService } from 'app/service/fournissurs.service';
+import { SocietesService } from 'app/service/societes.service';
 @Component({
   selector: 'app-bon-sorties',
   templateUrl: './bon-sorties.component.html',
@@ -22,7 +28,12 @@ export class BonSortiesComponent implements OnInit {
     private bonsortieService: BonSortieService,
     private authService: AuthServiceService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private clientService: ClientsService,
+    private produitService: ProduitsService,
+    private chambreService: ChambresService,
+    private societeService: SocietesService,
+    private fournisseurService: FournissursService
   ) { }
 
   ngOnInit(): void {
@@ -104,5 +115,108 @@ export class BonSortiesComponent implements OnInit {
       }
     });
   }
-  
+
+
+  async printBonSortie(bonSortie: BonSortie): Promise<void> {
+    const doc = new jsPDF();
+
+    // Récupérer la date du jour
+    const currentDate = new Date().toLocaleDateString();
+
+    // Titre du bon de sortie
+    const title = `Bon de Sortie numéro: ${bonSortie.numeroBonSortie}`;
+
+    // Informations sur la société (partie fixe)
+    const societeId = this.authService.getIdSociete(); // Supposons que vous avez une méthode dans votre service AuthService pour obtenir l'ID de la société
+    const societe = await this.societeService.getSociete(societeId).toPromise();
+    const societeInfo = `
+      Société: ${societe.name}
+      Responsable: ${societe.responsable}
+      Adresse: ${societe.adresse}
+      Téléphone: ${societe.telephone}
+      Email: ${societe.email}
+    `;
+
+    // Informations sur le fournisseur
+    const fournisseur = await this.fournisseurService.getFournisseur(bonSortie.idFournisseur).toPromise();
+    const fournisseurInfo = `
+      Fournisseur: ${fournisseur.nomCommercial}
+      Nom : ${fournisseur.name}
+      Adresse: ${fournisseur.adresse}
+      Téléphone: ${fournisseur.telephone}
+      CIN : ${fournisseur.cin}
+    `;
+
+    // Informations sur le bon de sortie
+    const produit = await this.produitService.getProduit(bonSortie.idProduit).toPromise();
+    const client = await this.clientService.getClient(bonSortie.idClient).toPromise();
+    const chambre = await this.chambreService.getChambre(bonSortie.idChambre).toPromise();
+
+    const bonSortieInfo = `
+      Produit: ${produit.name}
+      Quantité (Kg): ${bonSortie.qte}
+      Numéro Bon de Sortie: ${bonSortie.numeroBonSortie}
+      Matricule: ${bonSortie.matricule}
+      Chauffeur: ${bonSortie.chauffeur}
+      CIN Chauffeur: ${bonSortie.cinChauffeur}
+      Client: ${client.name}
+      Chambre: ${chambre.name}
+      Date: ${new Date(bonSortie.date).toLocaleDateString()}
+    `;
+
+    // Définir les marges
+    const margin = 10;
+
+    // Largeur et hauteur de la page
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    // Ajouter les informations au document PDF
+    doc.setFontSize(18);
+    doc.text(title, pageWidth / 2, margin, { align: 'center' });
+
+    // Ajouter la date du jour aux extrémités de la page
+    doc.setFontSize(10);
+   // doc.text(currentDate, margin, margin);
+    doc.text(currentDate, pageWidth - margin, margin, { align: 'right' });
+
+    // Dessiner un cadre pour chaque partie
+    const lineHeight = 6;
+    let y = margin + lineHeight;
+
+    doc.setFont('helvetica', 'bold'); // Mettre en gras
+    doc.setFontSize(12);
+    doc.text('Informations sur la Société', margin, y);
+    y += lineHeight;
+    doc.rect(margin, y, pageWidth - 2 * margin, 40); // Cadre pour les informations sur la société
+    doc.setFont('helvetica', 'normal'); // Revenir à la police normale
+    doc.setFontSize(10);
+    doc.text(societeInfo, margin + 5, y + 5);
+
+    y += 50; // Espace supplémentaire
+
+    doc.setFont('helvetica', 'bold'); // Mettre en gras
+    doc.setFontSize(12);
+    doc.text('Informations sur le Fournisseur', margin, y);
+    y += lineHeight;
+    doc.rect(margin, y, pageWidth - 2 * margin, 40); // Cadre pour les informations sur le fournisseur
+    doc.setFont('helvetica', 'normal'); // Revenir à la police normale
+    doc.setFontSize(10);
+    doc.text(fournisseurInfo, margin + 5, y + 5);
+
+    y += 50; // Espace supplémentaire
+
+    doc.setFont('helvetica', 'bold'); // Mettre en gras
+    doc.setFontSize(12);
+    doc.text('Informations du Bon de Sortie', margin, y);
+    y += lineHeight;
+    doc.rect(margin, y, pageWidth - 2 * margin, 50); // Cadre pour les informations sur le bon de sortie
+    doc.setFont('helvetica', 'normal'); // Revenir à la police normale
+    doc.setFontSize(10);
+    doc.text(bonSortieInfo, margin + 5, y + 5);
+
+    // Afficher la fenêtre d'impression
+    doc.output('dataurlnewwindow');
+}
+
 }

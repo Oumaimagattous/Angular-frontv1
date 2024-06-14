@@ -24,10 +24,12 @@
           <tr>
            
             <th>Nom</th>
-            <th>Adresse</th>
             <th>Type</th>
+            <th>MF</th> 
             <th>CIN</th>
-            
+            <th>Date d'émission</th> 
+            <th>Téléphone</th>
+            <th>Adresse</th>
             <th>Actions</th> <!-- Nouvelle colonne pour les actions -->
           </tr>
         </thead>
@@ -35,9 +37,16 @@
           <tr *ngFor="let client of filteredClients">
             
             <td>{{ client.name }}</td>
-            <td>{{ client.adresse }}</td>
             <td>{{ client.type }}</td>
+            <td>{{ client.mf }}</td> 
             <td>{{ client.cin }}</td>
+            <td>{{ client.dateEmission | date }}</td>
+            <td>{{ client.telephone }}</td> 
+            <td>{{ client.adresse }}</td>
+           
+            
+            
+        
            
             <td>
               

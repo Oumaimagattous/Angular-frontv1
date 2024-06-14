@@ -10,6 +10,8 @@ import { ChambresService } from 'app/service/chambres.service';
 import { Client } from 'app/Models/client';
 import { ClientsService } from 'app/service/clients.service';
 import { AuthServiceService } from 'app/service/auth-service.service';
+import { Fournisseur } from 'app/Models/fournisseur';
+import { FournissursService } from 'app/service/fournissurs.service';
 
 @Component({
   selector: 'app-add-edit-bon-sortie',
@@ -23,6 +25,7 @@ export class AddEditBonSortieComponent implements OnInit {
   produits: Produit[] = [];
   chambres: Chambre[] = [];
   clients: Client[] = []; 
+  fournisseurs: Fournisseur[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<AddEditBonSortieComponent>,
@@ -31,10 +34,11 @@ export class AddEditBonSortieComponent implements OnInit {
     private produitService: ProduitsService,
     private chambreService: ChambresService,
     private clientService: ClientsService ,
+    private fournisseurService: FournissursService,
     private authService: AuthServiceService
   ) {
     this.isEditMode = !!data.bonSortie;
-    this.bonSortie = this.isEditMode ? { ...data.bonSortie } : { id: null, date: new Date(), qte: 0, idProduit: null, idChambre: null, idClient: null, idSociete: null };
+    this.bonSortie = this.isEditMode ? { ...data.bonSortie } : {  id: null, date: new Date(), qte: 0, idProduit: null, idChambre: null, idClient: null, idFournisseur: null, matricule: '', chauffeur: '', cinChauffeur: '', numeroBonSortie: 0, idSociete: null };
   }
 
   ngOnInit(): void {
@@ -42,10 +46,11 @@ export class AddEditBonSortieComponent implements OnInit {
     // Récupérer l'ID de la société connectée depuis le service d'authentification
     const idSociete = this.authService.getIdSociete();
     this.bonSortie.idSociete = idSociete; // Définir l'ID de la société dans le bon de sortie
-    
+
     this.loadProduits();
     this.loadChambres();
     this.loadClients(); 
+    this.loadFournisseurs();
   }
 
   loadProduits(): void {
@@ -57,6 +62,10 @@ export class AddEditBonSortieComponent implements OnInit {
   }
   loadClients(): void { // Ajoutez cette méthode
     this.clientService.getClientList().subscribe(clients => this.clients = clients);
+  }
+  
+  loadFournisseurs(): void {
+    this.fournisseurService.getFournisseurList().subscribe(fournisseurs => this.fournisseurs = fournisseurs);
   }
 
   onSubmit(form: NgForm): void {
