@@ -10,5 +10,7 @@ export interface BonSortie {
     matricule: string;
     chauffeur: string;
     cinChauffeur: string;
+    nbrScasier: number; 
     numeroBonSortie: number;
+   
 }

@@ -20,8 +20,14 @@ export class ProduitsService {
   }
 
   getProduitList(): Observable<any> {
-    return this._http.get(`${this.baseUrl}`);
+    return this._http.get(`${this.baseUrl}/all`);
   }
+
+ // Nouvelle méthode pour obtenir la liste des produits par ID de société
+ getProduitsBySociete(societeId: number): Observable<any[]> {
+  return this._http.get<any[]>(`${this.baseUrl}/bysociete/${societeId}`);
+}
+  
   
 
   getProduit(id: number): Observable<any> {

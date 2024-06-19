@@ -1,0 +1,24 @@
+<div class="etat-casier-container">
+    <h2>État du casier</h2>
+    <div class="table-container">
+      <table class="mat-elevation-z8">
+        <thead>
+          <tr>
+            <th>Produit</th>
+            <th>NbrCasier Entrée</th>
+            <th>NbrCasier Sortie</th>
+            <th>NbrTotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let entry of etatStock">
+            <td>{{ entry.produit?.name }}</td>
+            <td>{{ entry.totalNbrE }}</td>
+            <td>{{ entry.totalNbrS }}</td>
+            <td>{{ entry.stockTotal }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

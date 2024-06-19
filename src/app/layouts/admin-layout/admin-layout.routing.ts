@@ -18,6 +18,9 @@ import { BonSortiesComponent } from '../../bon-sorties/bon-sorties.component';
 import { LoginComponent } from '../../login/login.component';
 import { AuthGuard } from '../../auth.guard';
 import { JournalStockComponent } from '../../journal-stock/journal-stock.component';
+import { EtaStockComponent } from '../../eta-stock/eta-stock.component';
+import { JournalCasierComponent } from '../../journal-casier/journal-casier.component';
+import { EtaCasierComponent } from '../../eta-casier/eta-casier.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -80,6 +83,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'chambres', component: ChambresComponent, canActivate: [AuthGuard] },
     { path: 'bon-sorties', component: BonSortiesComponent, canActivate: [AuthGuard] },
     { path: 'journal-stock', component: JournalStockComponent, canActivate: [AuthGuard] },
+    { path: 'eta-stock', component: EtaStockComponent, canActivate: [AuthGuard] },
+    { path: 'journal-casier', component: JournalCasierComponent, canActivate: [AuthGuard] },
+    { path: 'eta-casier', component: EtaCasierComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent }
 
 

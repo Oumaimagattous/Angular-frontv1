@@ -61,6 +61,11 @@
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Nombre de Casiers</mat-label>
+    <input matInput name="nbrScasier" [(ngModel)]="bonSortie.nbrScasier" required>
+ </mat-form-field>
+
+  <mat-form-field appearance="outline" class="form-field">
     <mat-label>Numéro BonSortie</mat-label>
     <input matInput name="numeroBonSortie" [(ngModel)]="bonSortie.numeroBonSortie" readonly>
   </mat-form-field>

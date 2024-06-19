@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { JournalStock } from 'app/Models/journal-stock';
+import { AuthServiceService } from 'app/service/auth-service.service';
 import { JournalStockService } from 'app/service/journal-stock.service';
+import { ProduitsService } from 'app/service/produits.service';
 
 @Component({
   selector: 'app-journal-stock',
@@ -10,21 +12,37 @@ import { JournalStockService } from 'app/service/journal-stock.service';
 export class JournalStockComponent implements OnInit {
 
   journalStock: JournalStock[] = [];
-  displayedColumns: string[] = ['produit', 'date','qteE', 'qteS', 'stock', 'delete'];
   filteredJournalStock: JournalStock[] = [];
-  startDate: Date;
-  endDate: Date;
+  displayedColumns: string[] = ['date', 'qteE', 'qteS', 'stock', 'delete'];
+  products: any[] = [];
+  selectedProduct: any = null; // Assurez-vous qu'il est initialisé à null
 
-  constructor(private journalStockService: JournalStockService) { }
+  startDate: Date | null = null;
+  endDate: Date | null = null;
+  societeId: number;
+
+  constructor(
+    private journalStockService: JournalStockService,
+    private authService: AuthServiceService,
+    private productService: ProduitsService
+  ) {}
 
   ngOnInit(): void {
-    this.loadJournalStock();
+    this.societeId = this.authService.getIdSociete();
+    if (this.societeId) {
+      this.loadJournalStock();
+      this.loadProduits();
+    } else {
+      console.error('Erreur: Societe ID est undefined');
+    }
   }
 
   loadJournalStock(): void {
-    this.journalStockService.getJournalStock().subscribe(
+    this.journalStockService.getJournalStocks(this.societeId).subscribe(
       data => {
         this.journalStock = data;
+        this.filteredJournalStock = data;
+        this.applyFilters(); 
       },
       error => {
         console.error('Erreur lors du chargement des données du journal de stock', error);
@@ -32,36 +50,42 @@ export class JournalStockComponent implements OnInit {
     );
   }
 
-  applyDateFilter(): void {
-    // Convertissez les dates en format ISO string pour la comparaison
-    const start = this.startDate.toISOString();
-    const end = this.endDate.toISOString();
-
-    // Appliquer le filtre
-    this.filteredJournalStock = this.journalStock.filter(item => {
-        const itemDate = new Date(item.date).toISOString();
-        return itemDate >= start && itemDate <= end;
+  loadProduits(): void {
+    this.productService.getProduitsBySociete(this.societeId).subscribe(data => {
+      this.products = data;
     });
-}
+  }
 
+  applyFilters(): void {
+    this.filteredJournalStock = this.journalStock.filter(entry => {
+      const productFilter = !this.selectedProduct || entry.idProduit === this.selectedProduct;
+      const startDateFilter = !this.startDate || new Date(entry.date) >= this.startDate;
+      const endDateFilter = !this.endDate || new Date(entry.date) <= this.endDate;
+
+      return productFilter && startDateFilter && endDateFilter;
+    });
+  }
+
+  applyProductFilter(): void {
+    if (this.selectedProduct) {
+      this.filteredJournalStock = this.journalStock.filter(
+        item => item.idProduit === this.selectedProduct.id
+      );
+    } else {
+      this.filteredJournalStock = this.journalStock;
+    }
+  }
 
   deleteEntry(id: number): void {
-    // Appelez votre service pour supprimer l'entrée correspondante par son ID
     this.journalStockService.deleteJournalStock(id).subscribe(
       () => {
-        // Rafraîchissez les données après la suppression
         this.loadJournalStock();
       },
       error => {
         console.error('Erreur lors de la suppression de l\'entrée du journal de stock', error);
       }
     );
-}
+  }
 
-calculatePercentage(value: number, total: number): number {
-  return (value / total) * 100;
-}
-
-
-
+  
 }

@@ -37,6 +37,9 @@ import { MatInputModule } from '@angular/material/input';
 import { AddEditBonSortieComponent } from '../../bon-sorties/add-edit-bon-sortie/add-edit-bon-sortie.component';
 import { LoginComponent } from '../../login/login.component';
 import { JournalStockComponent } from '../../journal-stock/journal-stock.component';
+import { EtaStockComponent } from '../../eta-stock/eta-stock.component';
+import { JournalCasierComponent } from '../../journal-casier/journal-casier.component';
+import { EtaCasierComponent } from '../../eta-casier/eta-casier.component';
 
 
 @NgModule({
@@ -80,7 +83,11 @@ import { JournalStockComponent } from '../../journal-stock/journal-stock.compone
     BonSortiesComponent,
     AddEditBonSortieComponent,
     JournalStockComponent,
+    EtaStockComponent,
+    JournalCasierComponent,
+    EtaCasierComponent,
     LoginComponent,
+    
 
    
     

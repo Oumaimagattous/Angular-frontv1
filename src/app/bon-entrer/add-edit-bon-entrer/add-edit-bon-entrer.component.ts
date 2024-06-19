@@ -45,13 +45,13 @@ export class AddEditBonEntrerComponent implements OnInit {
      const idSociete = this.authService.getIdSociete();
      this.bonEntree.idSociete = idSociete; // Définir l'ID de la société dans le bon d'entrée
      
-    this.loadProduits();
+    this.loadProduits(idSociete);
     this.loadFournisseurs();
     this.loadChambres();
   }
 
-  loadProduits(): void {
-    this.produitService.getProduitList().subscribe(produits => this.produits = produits);
+  loadProduits(idSociete: number): void {
+    this.produitService.getProduitsBySociete(idSociete).subscribe(produits => this.produits = produits);
   }
 
   loadFournisseurs(): void {

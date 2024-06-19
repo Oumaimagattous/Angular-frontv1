@@ -27,6 +27,10 @@ import { MatInputModule } from '@angular/material/input';
 import { BonSortieService } from './service/bon-sortie.service';
 import { AuthServiceService } from './service/auth-service.service';
 import { JournalStockService } from './service/journal-stock.service';
+import { JournalCasierService } from './service/journal-casier.service';
+
+
+
 
 
 
@@ -73,6 +77,9 @@ import { JournalStockService } from './service/journal-stock.service';
     AdminLayoutComponent,
    
     
+    
+   
+    
    
    
    
@@ -98,7 +105,8 @@ import { JournalStockService } from './service/journal-stock.service';
     ChambresService,
     BonSortieService,
     AuthServiceService,
-    JournalStockService
+    JournalStockService,
+    JournalCasierService
   ], 
   bootstrap: [AppComponent]
 })

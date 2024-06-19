@@ -38,7 +38,22 @@ export class AddEditBonSortieComponent implements OnInit {
     private authService: AuthServiceService
   ) {
     this.isEditMode = !!data.bonSortie;
-    this.bonSortie = this.isEditMode ? { ...data.bonSortie } : {  id: null, date: new Date(), qte: 0, idProduit: null, idChambre: null, idClient: null, idFournisseur: null, matricule: '', chauffeur: '', cinChauffeur: '', numeroBonSortie: 0, idSociete: null };
+    this.bonSortie = this.isEditMode ? { ...data.bonSortie } : { 
+      id: null, 
+      date: new Date(), 
+      qte: 0, 
+      idProduit: null, 
+      idChambre: null, 
+      idClient: null, 
+      idFournisseur: null, 
+      matricule: '', 
+      chauffeur: '', 
+      cinChauffeur: '', 
+      nbrScasier: 0,  
+      numeroBonSortie: 0, 
+      idSociete: null 
+  };
+
   }
 
   ngOnInit(): void {
@@ -47,15 +62,16 @@ export class AddEditBonSortieComponent implements OnInit {
     const idSociete = this.authService.getIdSociete();
     this.bonSortie.idSociete = idSociete; // Définir l'ID de la société dans le bon de sortie
 
-    this.loadProduits();
+    this.loadProduits(idSociete);
     this.loadChambres();
     this.loadClients(); 
     this.loadFournisseurs();
   }
 
-  loadProduits(): void {
-    this.produitService.getProduitList().subscribe(produits => this.produits = produits);
+  loadProduits(idSociete: number): void {
+    this.produitService.getProduitsBySociete(idSociete).subscribe(produits => this.produits = produits);
   }
+
 
   loadChambres(): void {
     this.chambreService.getChambreList().subscribe(chambres => this.chambres = chambres);

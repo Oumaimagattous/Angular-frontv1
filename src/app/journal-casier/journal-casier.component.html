@@ -1,0 +1,55 @@
+<div class="journal-casier-container">
+    <h2>Journal des casiers</h2>
+    <div class="filter-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Filtrer par produit</mat-label>
+        <mat-select [(value)]="selectedProduit" (selectionChange)="applyProduitFilter()">
+          <mat-option *ngFor="let produit of produits" [value]="produit">
+            {{ produit.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field class="date-input">
+        <input matInput [matDatepicker]="pickerStart" placeholder="Date de début" [(ngModel)]="startDate">
+        <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+        <mat-datepicker #pickerStart></mat-datepicker>
+      </mat-form-field>
+  
+      <mat-form-field class="date-input">
+        <input matInput [matDatepicker]="pickerEnd" placeholder="Date de fin" [(ngModel)]="endDate">
+        <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+        <mat-datepicker #pickerEnd></mat-datepicker>
+      </mat-form-field>
+  
+      <button mat-button (click)="applyFilters()">Filtrer</button>
+      <button mat-button (click)="clearFilters()">Effacer</button>
+    </div>
+  
+    <div class="table-container">
+      <table mat-table [dataSource]="entries" class="mat-elevation-z8">
+      
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Date </th>
+          <td mat-cell *matCellDef="let entry"> {{ entry.date | date: 'dd/MM/yyyy' }} </td>
+        </ng-container>
+        <ng-container matColumnDef="nbrE">
+          <th mat-header-cell *matHeaderCellDef> NbrE </th>
+          <td mat-cell *matCellDef="let entry"> {{ entry.nbrE }} </td>
+        </ng-container>
+        <ng-container matColumnDef="nbrS">
+          <th mat-header-cell *matHeaderCellDef> NbrS </th>
+          <td mat-cell *matCellDef="let entry"> {{ entry.nbrS }} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="totalStock">
+          <th mat-header-cell *matHeaderCellDef> Total Stock </th>
+          <td mat-cell *matCellDef="let entry"> {{ entry.totalStock }} </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let entry; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+  

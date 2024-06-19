@@ -1,41 +1,39 @@
-import { HttpClient } from '@angular/common/http';
+// src/app/services/journal-stock.service.ts
 import { Injectable } from '@angular/core';
-import { JournalStock, JournalStockDto } from 'app/Models/journal-stock';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { JournalStock } from 'app/Models/journal-stock';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class JournalStockService {
+  private apiUrl = 'https://localhost:7129/api/JournalStock'; // URL de l'API
 
- // URL de l'API
- private apiUrl = 'https://localhost:7129/api/JournalStock';
+  constructor(private http: HttpClient) {}
 
- constructor(private http: HttpClient) { }
+  // Récupérer toutes les entrées du journal de stock
+  getJournalStocks(societeId: number): Observable<JournalStock[]> {
+    return this.http.get<JournalStock[]>(`${this.apiUrl}?societeId=${societeId}`);
+  }
 
- // Récupérer tous les journaux de stock
- getJournalStock(): Observable<JournalStock[]> {
-   return this.http.get<JournalStock[]>(this.apiUrl);
- }
+  getJournalStock(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
 
- // Récupérer un journal de stock par ID
- getJournalStockById(id: number): Observable<JournalStock> {
-   return this.http.get<JournalStock>(`${this.apiUrl}/${id}`);
- }
+  /*getEtatStock(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/etatStock`);
+  }*/
+ 
+    getEtatStock(societeId: number): Observable<any[]> {
+      return this.http.get<any[]>(`${this.apiUrl}/etatStock?societeId=${societeId}`);
+    }
 
- // Ajouter un journal de stock
- addJournalStock(journalStock: JournalStockDto): Observable<JournalStock> {
-   return this.http.post<JournalStock>(this.apiUrl, journalStock);
- }
 
- // Mettre à jour un journal de stock
- updateJournalStock(id: number, journalStock: JournalStockDto): Observable<JournalStock> {
-   return this.http.put<JournalStock>(`${this.apiUrl}/${id}`, journalStock);
- }
-
- // Supprimer un journal de stock
- deleteJournalStock(id: number): Observable<void> {
-   return this.http.delete<void>(`${this.apiUrl}/${id}`);
- }
+  // Supprimer une entrée du journal de stock par ID
+  deleteJournalStock(id: number): Observable<void> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.delete<void>(url);
+  }
 }
