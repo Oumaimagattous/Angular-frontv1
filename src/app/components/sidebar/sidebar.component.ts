@@ -21,7 +21,6 @@ export const ROUTES: RouteInfo[] = [
     { path: '/journal-stock', title: 'JournalStock',  icon:'content_paste', class: '' },
     { path: '/eta-stock', title: 'EtatStock',  icon:'content_paste', class: '' },
     { path: '/journal-casier', title: 'JournalCasier',  icon:'content_paste', class: '' },
-    { path: '/eta-casier', title: 'EtatCasier',  icon:'content_paste', class: '' },
 
     
     

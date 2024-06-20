@@ -25,6 +25,10 @@ export class ClientsService {
   getClient(id: number): Observable<any> {
     return this._http.get(`${this.baseUrl}/${id}`);
   }
+  
+  ggetClientBySocieteId(idSociete: number): Observable<any> {
+    return this._http.get(`${this.baseUrl}/BySociete/${idSociete}`);
+  }
 
   deleteClient(id: number): Observable<any> {
     return this._http.delete(`${this.baseUrl}/${id}`);

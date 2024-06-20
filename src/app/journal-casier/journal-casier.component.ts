@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { JournalCasier } from 'app/Models/JournalCasier ';
+import { Fournisseur } from 'app/Models/fournisseur';
 import { Produit } from 'app/Models/produit';
 import { AuthServiceService } from 'app/service/auth-service.service';
+import { FournissursService } from 'app/service/fournissurs.service';
 import { JournalCasierService } from 'app/service/journal-casier.service';
 import { ProduitsService } from 'app/service/produits.service';
 
@@ -14,9 +16,12 @@ export class JournalCasierComponent implements OnInit {
 
   entries: JournalCasier[] = [];
   produits: Produit[] = [];
+  fournisseurs: Fournisseur[] = [];
+  
   displayedColumns: string[] = [ 'date', 'nbrE', 'nbrS', 'totalStock'];
 
   selectedProduit: Produit | null = null;
+  selectedFournisseur: Fournisseur | null = null;
   startDate: Date | null = null;
   endDate: Date | null = null;
   societeId: number;
@@ -24,6 +29,7 @@ export class JournalCasierComponent implements OnInit {
   constructor(
     private journalCasierService: JournalCasierService,
     private produitsService: ProduitsService,
+    private fournisseursService: FournissursService,
     private authService: AuthServiceService
   ) {}
 
@@ -33,6 +39,7 @@ export class JournalCasierComponent implements OnInit {
     if (this.societeId) {
       this.loadJournalCasier();
       this.loadProduits();
+      this.loadFournisseurs();
     } else {
       console.error('Erreur: ID de la société est indéfini');
     }
@@ -61,13 +68,25 @@ export class JournalCasierComponent implements OnInit {
     );
   }
 
+  loadFournisseurs(): void {
+    this.fournisseursService.getFournisseurBySocieteId(this.societeId).subscribe(
+      data => {
+        this.fournisseurs = data;
+      },
+      error => {
+        console.error('Erreur lors du chargement des fournisseurs', error);
+      }
+    );
+  }
+
   applyFilters(): void {
     this.entries = this.entries.filter(entry => {
       const produitFilter = !this.selectedProduit || entry.idProduit === this.selectedProduit.id;
+      const fournisseurFilter = !this.selectedFournisseur || entry.idFournisseur === this.selectedFournisseur.id;
       const startDateFilter = !this.startDate || new Date(entry.date) >= this.startDate;
       const endDateFilter = !this.endDate || new Date(entry.date) <= this.endDate;
 
-      return produitFilter && startDateFilter && endDateFilter;
+      return produitFilter && fournisseurFilter && startDateFilter && endDateFilter;
     });
   }
 
@@ -75,8 +94,13 @@ export class JournalCasierComponent implements OnInit {
     this.applyFilters();
   }
 
+  applyFournisseurFilter(): void {
+    this.applyFilters();
+  }
+
   clearFilters(): void {
     this.selectedProduit = null;
+    this.selectedFournisseur = null;
     this.startDate = null;
     this.endDate = null;
     this.loadJournalCasier();

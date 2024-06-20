@@ -8,4 +8,6 @@ export interface JournalStock {
   idBonSortie: number;
   idBonEntree: number;
   idSociete?: number; 
+  idFournisseur: number;
+  numeroBon: string;
 }

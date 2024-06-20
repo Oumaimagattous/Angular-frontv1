@@ -10,6 +10,15 @@
             </mat-select>
         </mat-form-field>
 
+        <mat-form-field appearance="fill">
+            <mat-label>Filtrer par fournisseur</mat-label>
+            <mat-select [(value)]="selectedFournisseur" (selectionChange)="applyFournisseurFilter()">
+              <mat-option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur">
+                {{ fournisseur.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
         <mat-form-field class="date-input">
             <input matInput [matDatepicker]="pickerStart" placeholder="Date de début" [(ngModel)]="startDate">
             <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
@@ -30,6 +39,7 @@
                 <tr>
                     <th>Produit</th>
                     <th>Date</th>
+                    <th>Observation</th>
                     <th>Quantité Entrée</th>
                     <th>Quantité Sortie</th>
                     <th>Stock Total</th>
@@ -38,10 +48,11 @@
             <tbody>
                 <ng-container *ngFor="let entry of filteredJournalStock">
                     <tr>
-                        <td>{{ entry.produit.name }}</td>
+                        <td>{{ entry.produit?.name }}</td>
                         <td>{{ entry.date | date: 'dd/MM/yyyy' }}</td>
-                        <td>{{ entry.qteE }}</td>
-                        <td>{{ entry.qteS }}</td>
+                        <td>{{ entry.numeroBon }}</td>
+                        <td>{{ entry.qteE === 0 ? '' : entry.qteE }}</td>
+                        <td>{{ entry.qteS === 0 ? '' : entry.qteS }}</td>
                         <td>{{ entry.stockTotal }}</td>
                     </tr>
                 </ng-container>

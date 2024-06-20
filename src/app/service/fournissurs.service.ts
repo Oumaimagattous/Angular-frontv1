@@ -25,6 +25,10 @@ export class FournissursService {
   getFournisseur(id: number): Observable<any> {
     return this._http.get(`${this.baseUrl}/${id}`);
   }
+  
+  getFournisseurBySocieteId(idSociete: number): Observable<any> {
+    return this._http.get(`${this.baseUrl}/BySociete/${idSociete}`);
+  }
 
   deleteFournisseur(id: number): Observable<any> {
     return this._http.delete(`${this.baseUrl}/${id}`);

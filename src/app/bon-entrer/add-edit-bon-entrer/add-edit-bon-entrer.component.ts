@@ -46,20 +46,20 @@ export class AddEditBonEntrerComponent implements OnInit {
      this.bonEntree.idSociete = idSociete; // Définir l'ID de la société dans le bon d'entrée
      
     this.loadProduits(idSociete);
-    this.loadFournisseurs();
-    this.loadChambres();
+    this.loadFournisseurs(idSociete);
+    this.loadChambres(idSociete);
   }
 
   loadProduits(idSociete: number): void {
     this.produitService.getProduitsBySociete(idSociete).subscribe(produits => this.produits = produits);
   }
 
-  loadFournisseurs(): void {
-    this.fournisseurService.getFournisseurList().subscribe(fournisseurs => this.fournisseurs = fournisseurs);
+  loadFournisseurs(idSociete: number): void {
+    this.fournisseurService.getFournisseurBySocieteId(idSociete).subscribe(fournisseurs => this.fournisseurs = fournisseurs);
   }
 
-  loadChambres(): void {
-    this.chambreService.getChambreList().subscribe(chambres => this.chambres = chambres);
+  loadChambres(idSociete: number): void {
+    this.chambreService.getChambresBySocieteId(idSociete).subscribe(chambres => this.chambres = chambres);
   }
 
   onSubmit(form: NgForm): void {

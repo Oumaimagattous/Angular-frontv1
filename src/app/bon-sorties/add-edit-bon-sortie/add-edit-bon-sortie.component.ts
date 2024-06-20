@@ -63,9 +63,9 @@ export class AddEditBonSortieComponent implements OnInit {
     this.bonSortie.idSociete = idSociete; // Définir l'ID de la société dans le bon de sortie
 
     this.loadProduits(idSociete);
-    this.loadChambres();
-    this.loadClients(); 
-    this.loadFournisseurs();
+    this.loadChambres(idSociete);
+    this.loadClients(idSociete); 
+    this.loadFournisseurs(idSociete);
   }
 
   loadProduits(idSociete: number): void {
@@ -73,16 +73,22 @@ export class AddEditBonSortieComponent implements OnInit {
   }
 
 
-  loadChambres(): void {
-    this.chambreService.getChambreList().subscribe(chambres => this.chambres = chambres);
+  
+  loadFournisseurs(idSociete: number): void {
+    this.fournisseurService.getFournisseurBySocieteId(idSociete).subscribe(fournisseurs => this.fournisseurs = fournisseurs);
   }
-  loadClients(): void { // Ajoutez cette méthode
-    this.clientService.getClientList().subscribe(clients => this.clients = clients);
+
+  loadChambres(idSociete: number): void {
+    this.chambreService.getChambresBySocieteId(idSociete).subscribe(chambres => this.chambres = chambres);
+  }
+
+
+  
+  loadClients(idSociete: number): void {
+    this.clientService.ggetClientBySocieteId(idSociete).subscribe(clients => this.clients = clients);
   }
   
-  loadFournisseurs(): void {
-    this.fournisseurService.getFournisseurList().subscribe(fournisseurs => this.fournisseurs = fournisseurs);
-  }
+ 
 
   onSubmit(form: NgForm): void {
     if (form.valid) {

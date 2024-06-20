@@ -8,5 +8,6 @@ export interface JournalCasier {
     idSociete: number;
     idProduit: number;
     totalStock: number;
+    idFournisseur: number;
   }
   

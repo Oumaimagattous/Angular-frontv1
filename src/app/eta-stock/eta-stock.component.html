@@ -1,10 +1,38 @@
 <div class="etat-stock-container">
     <h2>État du Stock</h2>
+    <div class="filter-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Filtrer par produit</mat-label>
+        <mat-select [(value)]="selectedProduit" (selectionChange)="applyProduitFilter()">
+          <mat-option *ngFor="let produit of produits" [value]="produit">
+            {{ produit.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Filtrer par fournisseur</mat-label>
+        <mat-select [(value)]="selectedFournisseur" (selectionChange)="applyFournisseurFilter()">
+          <mat-option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur">
+            {{ fournisseur.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <button mat-button (click)="applyFilters()">Filtrer</button>
+      <button mat-button (click)="clearFilters()">Effacer</button>
+    </div>
+
+
+
+
+
     <div class="table-container">
       <table class="mat-elevation-z8">
         <thead>
           <tr>
             <th>Produit</th>
+            <th>Fournisseur</th>
             <th> QtesE</th>
             <th> QtesS</th>
             <th>Stock </th>
@@ -13,6 +41,7 @@
         <tbody>
           <tr *ngFor="let entry of etatStock">
             <td>{{ entry.produit.name }}</td>
+            <td>{{ entry.fournisseur.name }}</td>
             <td>{{ entry.totalQteE }}</td>
             <td>{{ entry.totalQteS }}</td>
             <td>{{ entry.stockTotal }}</td>

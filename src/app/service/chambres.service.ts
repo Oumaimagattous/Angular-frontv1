@@ -21,6 +21,9 @@ export class ChambresService {
   getChambreList(): Observable<any> {
     return this._http.get(`${this.baseUrl}`);
   }
+   getChambresBySocieteId(idSociete: number): Observable<any> {
+    return this._http.get(`${this.baseUrl}/BySociete/${idSociete}`);
+  }
 
   deleteChambre(id: number): Observable<any> {
     return this._http.delete(`${this.baseUrl}/${id}`);
