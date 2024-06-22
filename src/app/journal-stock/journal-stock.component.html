@@ -43,6 +43,7 @@
                     <th>Quantité Entrée</th>
                     <th>Quantité Sortie</th>
                     <th>Stock Total</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,6 +55,12 @@
                         <td>{{ entry.qteE === 0 ? '' : entry.qteE }}</td>
                         <td>{{ entry.qteS === 0 ? '' : entry.qteS }}</td>
                         <td>{{ entry.stockTotal }}</td>
+                        <td>
+                            <!-- Icône d'impression pour cette entrée -->
+                            <button mat-icon-button (click)="printEntry(entry)">
+                              <mat-icon>print</mat-icon>
+                            </button>
+                          </td>
                     </tr>
                 </ng-container>
             </tbody>

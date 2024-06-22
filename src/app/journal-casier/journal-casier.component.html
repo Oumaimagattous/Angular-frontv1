@@ -35,6 +35,7 @@
   
       <button mat-button (click)="applyFilters()">Filtrer</button>
       <button mat-button (click)="clearFilters()">Effacer</button>
+      <button mat-button (click)="openAddDialog()">Ajouter</button>
     </div>
   
     <div class="table-container">
@@ -58,6 +59,16 @@
         <ng-container matColumnDef="totalStock">
           <th mat-header-cell *matHeaderCellDef> Total Stock </th>
           <td mat-cell *matCellDef="let entry"> {{ entry.totalStock }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef> Delete </th>
+          <td mat-cell *matCellDef="let entry">
+            <button mat-icon-button color="warn" (click)="deleteEntry(entry.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            
+          </td>
         </ng-container>
   
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

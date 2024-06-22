@@ -1,7 +1,7 @@
 export interface JournalCasier {
-    id: number;
-    idBonEntree: number | null;
-    idBonSortie: number | null;
+  id?: number; // Id optionnel si vous générez l'id côté backend
+  idBonEntree?: number | null;
+  idBonSortie?: number | null;
     nbrE: number;
     nbrS: number;
     date: Date;

@@ -1,0 +1,87 @@
+// Variables de couleurs
+$primary-color: #00bcd4; // Bleu azure
+$primary-dark-color: darken($primary-color, 10%);
+$primary-light-color: lighten($primary-color, 20%);
+$background-color: #ffffff;
+$dialog-background-color: #f7f9fc;
+$text-color: #333;
+$border-color: #e0e0e0;
+$shadow-color: rgba(0, 0, 0, 0.1);
+
+// Styles globaux
+.dialog-title {
+  color: $primary-dark-color;
+  font-size: 16px; // Réduit la taille de la police
+  font-weight: 500;
+  margin-bottom: 8px; // Réduit l'espace en bas
+  text-align: center;
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 4px; // Réduit le padding en bas
+}
+
+.dialog-form {
+  background-color: $dialog-background-color;
+  padding: 8px 10px; // Réduit le padding
+  border-radius: 8px;
+  box-shadow: 0 4px 10px $shadow-color;
+  max-width: 600px;  // Réduit la largeur maximale
+  max-height: 400px; // Ajoute une hauteur maximale
+  overflow-y: auto; // Permet le défilement si le formulaire est trop grand
+  margin: auto;
+}
+
+.form-field {
+  width: 100%;
+  margin-bottom: 6px; // Réduit l'espace en bas
+
+  mat-label {
+    color: $primary-dark-color;
+    font-weight: 500;
+    font-size: 14px; // Réduit la taille de la police
+  }
+
+  .mat-form-field-outline {
+    border-color: $primary-color;
+  }
+
+  input, mat-select {
+    font-size: 12px; // Réduit la taille de la police
+    padding: 4px; // Réduit le padding
+    background-color: transparent;
+  }
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: space-between; // Aligner les boutons de chaque côté
+  padding: 8px 0;
+  border-top: 1px solid $border-color;
+  margin-top: 6px; // Réduit l'espace en haut
+
+  button {
+    font-size: 12px; // Réduit la taille de la police
+    font-weight: 500;
+    padding: 4px 6px; // Réduit le padding
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+
+    &.save-button, &.imprimer-button {
+      color: #fff;
+      background-color: $primary-color;
+
+      &:hover {
+        background-color: $primary-dark-color;
+      }
+    }
+
+    &.cancel-button {
+      color: $primary-color;
+      background-color: transparent;
+      border: 1px solid $primary-color;
+
+      &:hover {
+        background-color: $primary-light-color;
+      }
+    }
+  }
+}

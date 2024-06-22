@@ -1,0 +1,46 @@
+<h1 mat-dialog-title class="dialog-title">Ajouter une nouvelle entrée</h1>
+<div mat-dialog-content class="dialog-form">
+  <form>
+    <mat-form-field class="form-field" appearance="fill">
+      <mat-label>Type</mat-label>
+      <mat-select [(ngModel)]="newEntry.type" name="type" required>
+        <mat-option value="Entrée">Entrée</mat-option>
+        <mat-option value="Sortie">Sortie</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="form-field" appearance="fill">
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="newEntry.date" name="date" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="form-field" appearance="fill">
+      <mat-label>Nombre de casiers</mat-label>
+      <input matInput type="number" [(ngModel)]="newEntry.nbrCasier" name="nbrCasier" required>
+    </mat-form-field>
+
+    <mat-form-field class="form-field" appearance="fill">
+      <mat-label>Produit</mat-label>
+      <mat-select [(ngModel)]="newEntry.idProduit" name="idProduit" required>
+        <mat-option *ngFor="let produit of data.produits" [value]="produit.id">
+          {{ produit.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="form-field" appearance="fill">
+      <mat-label>Fournisseur</mat-label>
+      <mat-select [(ngModel)]="newEntry.idFournisseur" name="idFournisseur" required>
+        <mat-option *ngFor="let fournisseur of data.fournisseurs" [value]="fournisseur.id">
+          {{ fournisseur.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-button class="cancel-button" (click)="onNoClick()">Annuler</button>
+  <button mat-button class="save-button" (click)="onSubmit()">Ajouter</button>
+</div>

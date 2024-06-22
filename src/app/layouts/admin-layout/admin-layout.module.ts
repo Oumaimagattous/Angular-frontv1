@@ -40,6 +40,8 @@ import { JournalStockComponent } from '../../journal-stock/journal-stock.compone
 import { EtaStockComponent } from '../../eta-stock/eta-stock.component';
 import { JournalCasierComponent } from '../../journal-casier/journal-casier.component';
 import { EtaCasierComponent } from '../../eta-casier/eta-casier.component';
+import { AddJournalCasierComponent } from '../../journal-casier/add-journal-casier/add-journal-casier.component';
+
 
 
 @NgModule({
@@ -86,6 +88,7 @@ import { EtaCasierComponent } from '../../eta-casier/eta-casier.component';
     EtaStockComponent,
     JournalCasierComponent,
     EtaCasierComponent,
+    AddJournalCasierComponent,
     LoginComponent,
     
 

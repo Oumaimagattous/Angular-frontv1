@@ -6,6 +6,9 @@ import { AuthServiceService } from 'app/service/auth-service.service';
 import { FournissursService } from 'app/service/fournissurs.service';
 import { JournalCasierService } from 'app/service/journal-casier.service';
 import { ProduitsService } from 'app/service/produits.service';
+import { AddJournalCasierComponent } from './add-journal-casier/add-journal-casier.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-journal-casier',
@@ -18,7 +21,7 @@ export class JournalCasierComponent implements OnInit {
   produits: Produit[] = [];
   fournisseurs: Fournisseur[] = [];
   
-  displayedColumns: string[] = [ 'date', 'nbrE', 'nbrS', 'totalStock'];
+  displayedColumns: string[] = [ 'date', 'nbrE', 'nbrS', 'totalStock','delete'];
 
   selectedProduit: Produit | null = null;
   selectedFournisseur: Fournisseur | null = null;
@@ -30,7 +33,9 @@ export class JournalCasierComponent implements OnInit {
     private journalCasierService: JournalCasierService,
     private produitsService: ProduitsService,
     private fournisseursService: FournissursService,
-    private authService: AuthServiceService
+    private authService: AuthServiceService,
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -106,7 +111,77 @@ export class JournalCasierComponent implements OnInit {
     this.loadJournalCasier();
   }
 
-  
+  openAddDialog(): void {
+    const dialogRef = this.dialog.open(AddJournalCasierComponent, {
+        width: '400px',
+        data: { produits: this.produits, fournisseurs: this.fournisseurs }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+            console.log('Nouvelle entrée à ajouter:', result);
+
+            let idBonEntree: number | null = null;
+            let idBonSortie: number | null = null;
+            let nbrE = 0;
+            let nbrS = 0;
+
+            if (result.type === 'Entrée') {
+                // idBonEntree doit être récupéré d'une autre source ou généré dans le backend
+                nbrE = result.nbrCasier;
+            } else if (result.type === 'Sortie') {
+                // idBonSortie doit être récupéré d'une autre source ou généré dans le backend
+                nbrS = result.nbrCasier;
+            }
+
+            const newEntry: JournalCasier = {
+                id: 0,
+                idBonEntree: idBonEntree,
+                idBonSortie: idBonSortie,
+                nbrE: nbrE,
+                nbrS: nbrS,
+                date: new Date(result.date),
+                idSociete: this.societeId,
+                idProduit: result.idProduit,
+                totalStock: this.calculateTotalStock(result.nbrCasier, result.type),
+                idFournisseur: result.idFournisseur
+            };
+
+            console.log('Données à envoyer à l\'API:', newEntry);
+
+            this.journalCasierService.addEntry(newEntry).subscribe(
+                response => {
+                    this.entries.push(response);
+                    this.applyFilters();
+                },
+                error => {
+                    console.error('Erreur lors de l\'ajout de l\'entrée', error);
+                }
+            );
+        }
+    });
+}
+
+
+  generateRandomId(): number {
+    return Math.floor(Math.random() * 1000000);
+  }
+
+  calculateTotalStock(nbrCasier: number, type: string): number {
+    let totalStock = this.entries.length > 0 ? this.entries[this.entries.length - 1].totalStock : 0;
+    return type === 'Entrée' ? totalStock + nbrCasier : totalStock - nbrCasier;
+  }
+
+
+  deleteEntry(id: number): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce journal Casier ?')) {
+      this.journalCasierService.deleteEntry(id).subscribe(() => {
+        this.snackBar.open('Journal Casier supprimé avec succès', 'Fermer', { duration: 2000 });
+        this.loadJournalCasier();
+      });
+    }
+  }
+  
+  
 
 }
