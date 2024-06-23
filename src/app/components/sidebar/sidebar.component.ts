@@ -7,6 +7,8 @@ declare interface RouteInfo {
     title: string;
     icon: string;
     class: string;
+    children?: RouteInfo[];
+    open?: boolean;
 }
 export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
@@ -18,10 +20,11 @@ export const ROUTES: RouteInfo[] = [
     { path: '/produits', title: 'Produits',  icon:'bubble_chart', class: '' },
     { path: '/bon-entrer', title: 'BonEntrer',  icon:'content_paste', class: '' },
     { path: '/bon-sorties', title: 'BonSortie',  icon:'content_paste', class: '' },
-    { path: '/journal-stock', title: 'JournalStock',  icon:'content_paste', class: '' },
-    { path: '/eta-stock', title: 'EtatStock',  icon:'content_paste', class: '' },
-    { path: '/journal-casier', title: 'JournalCasier',  icon:'content_paste', class: '' },
-
+    { path: '/stock', title: 'Stock', icon: 'inventory', class: '', children: [
+      { path: 'journal-stock', title: 'JournalStock', icon: 'content_paste', class: '' },
+      { path: 'eta-stock', title: 'EtatStock', icon: 'content_paste', class: '' },
+      { path: 'journal-casier', title: 'JournalCasier', icon: 'content_paste', class: '' }
+  ]},
     
     
     
@@ -54,4 +57,11 @@ export class SidebarComponent implements OnInit {
     this.authService.logout(); // Appel de la méthode de déconnexion du service d'authentification
     this.router.navigate(['/login']); // Redirection vers la page de login
   }
+
+  toggleSubMenu(menuItem: RouteInfo) {
+    if (menuItem.children) {
+      menuItem.open = !menuItem.open;
+    }
+  }
+
 }

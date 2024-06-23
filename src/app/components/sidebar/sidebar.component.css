@@ -11,6 +11,19 @@
     transition: background-color 0.3s;
 }
 
+.nav .has-submenu .caret {
+    float: right;
+    margin-top: 8px;
+}
+
+.nav .nav {
+    display: none;
+}
+
+.nav .nav.show {
+    display: block;
+}
+
 .nav-item button:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }

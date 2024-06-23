@@ -82,10 +82,11 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'chambres', component: ChambresComponent, canActivate: [AuthGuard] },
     { path: 'bon-entrer', component: BonEntrerComponent, canActivate: [AuthGuard] },
     { path: 'bon-sorties', component: BonSortiesComponent, canActivate: [AuthGuard] },
-    { path: 'journal-stock', component: JournalStockComponent, canActivate: [AuthGuard] },
-    { path: 'eta-stock', component: EtaStockComponent, canActivate: [AuthGuard] },
-    { path: 'journal-casier', component: JournalCasierComponent, canActivate: [AuthGuard] },
+    { path: 'stock/journal-stock', component: JournalStockComponent, canActivate: [AuthGuard] },
+    { path: 'stock/eta-stock', component: EtaStockComponent, canActivate: [AuthGuard] },
+    { path: 'stock/journal-casier', component: JournalCasierComponent, canActivate: [AuthGuard] },
     { path: 'eta-casier', component: EtaCasierComponent, canActivate: [AuthGuard] },
+    
     { path: 'login', component: LoginComponent }
 
 
