@@ -21,7 +21,7 @@ export class JournalCasierComponent implements OnInit {
   produits: Produit[] = [];
   fournisseurs: Fournisseur[] = [];
   
-  displayedColumns: string[] = [ 'date', 'nbrE', 'nbrS', 'totalStock','delete'];
+  displayedColumns: string[] = [ 'date', 'nbrE', 'nbrS', 'totalStock'];
 
   selectedProduit: Produit | null = null;
   selectedFournisseur: Fournisseur | null = null;

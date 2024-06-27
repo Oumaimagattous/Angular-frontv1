@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Fournisseur } from 'app/Models/fournisseur';
 import { AuthServiceService } from 'app/service/auth-service.service';
 import { FournissursService } from 'app/service/fournissurs.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-add-edit-fournissures',
@@ -40,15 +41,20 @@ export class AddEditFournissuresComponent  {
     this.fournisseur.idSociete = idSociete; // Définir l'ID de la société dans le fournisseur
   }
 
-  onSubmit(): void {
-    if (this.fournisseur.id) {
-      this.fournisseursService.updateFournisseur(this.fournisseur.id, this.fournisseur).subscribe(() => {
-        this.dialogRef.close(true);
-      });
+  onSubmit(fournisseurForm: NgForm): void {
+    if (fournisseurForm.valid) {
+      if (this.fournisseur.id) {
+        this.fournisseursService.updateFournisseur(this.fournisseur.id, this.fournisseur).subscribe(() => {
+          this.dialogRef.close(true);
+        });
+      } else {
+        this.fournisseursService.addFournisseur(this.fournisseur).subscribe(() => {
+          this.dialogRef.close(true);
+        });
+      }
     } else {
-      this.fournisseursService.addFournisseur(this.fournisseur).subscribe(() => {
-        this.dialogRef.close(true);
-      });
+      // Afficher un message d'erreur ou gérer la validation du formulaire non valide
+      console.error('Formulaire invalide. Veuillez remplir tous les champs obligatoires.');
     }
   }
 

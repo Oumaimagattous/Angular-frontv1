@@ -17,10 +17,11 @@
 
      
 
-      <button mat-button color="primary" (click)="applyDateFilter()">Filtrer</button>
+      <button mat-button class="filter-button" (click)="applyDateFilter()">Filtrer</button>
       <button class="add-button" (click)="addBonSortie()" aria-label="Ajouter client">
-        <mat-icon>add</mat-icon>
+        <mat-icon color="primary">add</mat-icon>
       </button>
+
 
      
 
@@ -36,15 +37,14 @@
             <th>Chambre</th>
             <th>Produit</th>
             <th>Fournisseur</th>
-          
-            <th>Numéro-BonSortie</th>
-            <th>Actions</th>
+            <th>Numéro</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let bonSortie of filteredBonsSortie">
             
-            <td>{{ bonSortie.date | date }}</td>
+            <td>{{ bonSortie.date | date:'MM/dd/yyyy' }}</td>
             <td>{{ bonSortie.qte }}</td>
             <td>{{ bonSortie.client?.name }}</td>
             <td>{{ bonSortie.chambre?.name }}</td>

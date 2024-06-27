@@ -64,11 +64,11 @@ export class BonSortiesComponent implements OnInit {
     // Filtre les sorties en fonction de la date de début et de fin
     if (this.startDate && this.endDate) {
       this.filteredBonsSortie = this.sorties.filter(bonSortie =>
-        new Date(bonSortie.date) >= this.startDate && new Date(bonSortie.date) <= this.endDate
+        new Date(bonSortie.date) >= this.startDate && new Date(bonSortie.date) <= this.endDate && bonSortie.idSociete === this.authService.getIdSociete()
       );
     } else {
-      // Si l'une des dates est vide, affiche toutes les sorties
-      this.filteredBonsSortie = this.sorties;
+      // Si l'une des dates est vide, affiche toutes les sorties pour l'ID de société connectée
+      this.filteredBonsSortie = this.sorties.filter(bonSortie => bonSortie.idSociete === this.authService.getIdSociete());
     }
   }
 

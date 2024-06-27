@@ -7,6 +7,7 @@ import { Fournisseur } from 'app/Models/fournisseur';
 import { AddEditFournissuresComponent } from './add-edit-fournissures/add-edit-fournissures.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthServiceService } from 'app/service/auth-service.service';
+import { TranslateService } from '@ngx-translate/core'; 
 
 
 @Component({
@@ -25,11 +26,13 @@ export class FournisseursComponent implements OnInit {
     private fournisseursService: FournissursService,
     private router: Router,
     private dialog: MatDialog,
+    private translate: TranslateService,
     private authService: AuthServiceService
   ) {}
 
   ngOnInit(): void {
     this.loadFournisseurs();
+    this.setTranslations(); 
   }
 
   loadFournisseurs(): void {
@@ -50,7 +53,8 @@ export class FournisseursComponent implements OnInit {
     const searchTerm = event.target.value.toLowerCase();
     this.filteredFournisseurs = this.fournisseurs.filter(fournisseur => 
       fournisseur.name.toLowerCase().includes(searchTerm) ||
-      fournisseur.adresse.toLowerCase().includes(searchTerm)
+      fournisseur.adresse.toLowerCase().includes(searchTerm)||
+      fournisseur.nomCommercial.toLowerCase().includes(searchTerm)
     );
   }
 
@@ -58,10 +62,17 @@ export class FournisseursComponent implements OnInit {
     if (confirm('Êtes-vous sûr de vouloir supprimer ce fournisseur ?')) {
       this.fournisseursService.deleteFournisseur(id).subscribe(() => {
         this.snackBar.open('Fournisseur supprimé avec succès', 'Fermer', { duration: 2000 });
+        
+        // Mettre à jour la liste locale après suppression
+        this.filteredFournisseurs = this.filteredFournisseurs.filter(f => f.id !== id);
+  
+        // Recharger la liste complète des fournisseurs depuis le backend
         this.loadFournisseurs();
       });
     }
   }
+    
+
 
   navigateToAddFournisseur(): void {
     const dialogRef = this.dialog.open(AddEditFournissuresComponent, {
@@ -87,6 +98,13 @@ export class FournisseursComponent implements OnInit {
       if (result) {
         this.loadFournisseurs();
       }
+    });
+  }
+
+  // Fonction pour définir les traductions
+  private setTranslations(): void {
+    this.translate.get('liste_Fournisseurs').subscribe((translation: string) => {
+      document.title = translation; // Modifier le titre de la page par exemple
     });
   }
 

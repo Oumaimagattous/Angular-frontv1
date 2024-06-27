@@ -20,7 +20,7 @@
            
             <th>Nom</th>
             
-            <th>Actions</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -29,10 +29,10 @@
             <td>{{ produit.name }}</td>
            
             <td>
-              <button mat-icon-button color="primary" (click)="editProduit(produit.id)">
+              <button mat-icon-button class="edit-button" (click)="editProduit(produit.id)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button color="warn" (click)="deleteProduit(produit.id)">
+              <button mat-icon-button class="delete-button" (click)="deleteProduit(produit.id)">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>

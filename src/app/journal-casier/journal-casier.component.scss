@@ -10,28 +10,34 @@
     }
   
     .filter-container {
-      display: flex; /* Disposition en ligne */
-      align-items: center; /* Aligne les éléments au centre verticalement */
-      margin-bottom: 20px; /* Espacement sous la barre de recherche */
-      flex-wrap: wrap; /* Permettre le retour à la ligne si nécessaire */
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
     }
-  
+    
     .mat-form-field {
       width: 100%;
-      margin-right: 15px; /* Espacement entre les champs */
-      flex: 1; /* Les champs prennent l'espace disponible */
+      margin-right: 15px;
+      flex: 1;
     }
-  
+    
     .mat-button {
       background-color: #00bcd4;
       color: #fff;
-      min-width: auto; /* Ajuster la largeur automatiquement */
-      margin-left: 15px; /* Espacement entre les champs et le bouton */
+      min-width: auto;
+      margin-left: 15px;
     }
-  
+    
     .mat-button:hover {
       background-color: #0097a7;
     }
+    
+    /* Ensure buttons are on the same line */
+    .mat-button {
+      margin-right: 10px; /* Adjust margin for button spacing */
+    }
+    
   
     .table-container {
       background-color: #fff; /* Couleur de fond de la table */

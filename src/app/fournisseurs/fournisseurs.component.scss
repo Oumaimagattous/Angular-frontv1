@@ -8,7 +8,7 @@
 .panel-header h2 {
   color: #00bcd4; /* Couleur principale */
   margin-bottom: 20px; /* Espacement sous le titre */
-  text-align: center; // Alignement du texte au centre
+  text-align: center; /* Alignement du texte au centre */
 }
 
 .search-container {
@@ -71,35 +71,37 @@ tr:nth-child(even) {
   color: #00bcd4; /* Couleur des icônes */
 }
 
-.mat-icon-button.color-primary {
-  color: #00bcd4; /* Couleur du bouton primaire */
+/* Styles spécifiques pour les icônes "edit" et "delete" */
+.edit-button .mat-icon {
+  color: #2196f3; /* Couleur de l'icône "edit" */
 }
 
-.mat-icon-button.color-warn {
-  color: #d32f2f; /* Couleur du bouton d'alerte */
+.delete-button .mat-icon {
+  color: #d32f2f; /* Couleur de l'icône "delete" */
 }
+
 /* Styles pour le bouton Ajouter */
 .add-button-container {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 20px; // Espace entre le bouton et le tableau
+  margin-bottom: 20px; /* Espace entre le bouton et le tableau */
 }
 
 .add-button {
-  width: 40px; // Largeur du bouton
-  height: 40px; // Hauteur du bouton
-  background-color: #00bcd4; // Couleur bleu siel
-  color: white; // Couleur du texte
+  width: 40px; /* Largeur du bouton */
+  height: 40px; /* Hauteur du bouton */
+  background-color: #00bcd4; /* Couleur bleu ciel */
+  color: white; /* Couleur du texte */
   border: none;
-  border-radius: 5px; // Bordure arrondie
+  border-radius: 5px; /* Bordure arrondie */
   cursor: pointer;
+}
 
-  &:hover {
-      background-color: #00bcd4; // Couleur plus foncée au survol
-  }
+.add-button:hover {
+  background-color: #0097a7; /* Couleur plus foncée au survol */
+}
 
-  mat-icon {
-      font-size: 24px;
-      color: white;
-  }
+.add-button mat-icon {
+  font-size: 24px;
+  color: white;
 }

@@ -31,6 +31,14 @@
   background-color: #00bcd4;
   color: #fff;
 }
+.edit-button .mat-icon {
+  color: #2196f3; /* Couleur de l'icône "edit" */
+}
+
+.delete-button .mat-icon {
+  color: #d32f2f; /* Couleur de l'icône "delete" */
+}
+
 
 .mat-button:hover {
   background-color: #0097a7;

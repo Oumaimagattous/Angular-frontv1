@@ -1,56 +1,50 @@
 <div class="main-body">
-    <div class="panel-header">
-      <h2>Liste des fournisseurs</h2>
-      
-    </div>
-    <div class="search-container">
-      <mat-form-field class="search-input">
-        <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher...">
-      </mat-form-field>
-      <button  class="add-button" mat-icon-button color="primary" (click)="navigateToAddFournisseur()" aria-label="Ajouter client">
-        <mat-icon>add</mat-icon>
-      </button>
-     
-    </div>
-  
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-          
-          <th>Nom Commercial</th>
-          <th>MF</th>
-          <th>Nom</th>
-          <th>CIN</th>
-          <th>Date Emission</th>
-          <th>Téléphone</th>
-          <th>Adresse</th>
-          <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let fournisseur of filteredFournisseurs">
-            
-            <td>{{ fournisseur.nomCommercial }}</td>
-            <td>{{ fournisseur.mf }}</td>
-            <td>{{ fournisseur.name }}</td>
-            <td>{{ fournisseur.cin }}</td>
-            <td>{{ fournisseur.dateEmission | date }}</td>
-            <td>{{ fournisseur.telephone }}</td>
-            <td>{{ fournisseur.adresse }}</td>
-
-           
-            <td>
-              <button mat-icon-button color="primary" (click)="navigateToEditFournisseur(fournisseur.id)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-icon-button color="warn" (click)="deleteFournisseur(fournisseur.id)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="panel-header">
+    <h2>{{ 'Liste des Fournisseurs' | translate }}</h2>
   </div>
-  
+
+  <div class="search-container">
+    <mat-form-field class="search-input">
+      <input matInput (keyup)="applyFilter($event)" placeholder="{{ 'Rechercher' | translate }}...">
+    </mat-form-field>
+    <button  class="add-button" mat-icon-button color="primary" (click)="navigateToAddFournisseur()" aria-label="Ajouter client">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>{{ 'Nom Commercial' | translate }}</th>
+          <th>{{ 'Matricule fiscal' | translate }}</th>
+          <th>{{ 'Nom' | translate }}</th>
+          <th>{{ 'CIN' | translate }}</th>
+          <th>{{ 'Date de Délivrance' | translate }}</th>
+          <th>{{ 'Téléphone' | translate }}</th>
+          <th>{{ 'Adresse' | translate }}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let fournisseur of filteredFournisseurs">
+          <td>{{ fournisseur.nomCommercial }}</td>
+          <td>{{ fournisseur.mf }}</td>
+          <td>{{ fournisseur.name }}</td>
+          <td>{{ fournisseur.cin }}</td>
+          <td>{{ fournisseur.dateEmission | date }}</td>
+          <td>{{ fournisseur.telephone }}</td>
+          <td>{{ fournisseur.adresse }}</td>
+          <td>
+            <button mat-icon-button class="edit-button" (click)="navigateToEditFournisseur(fournisseur.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button class="delete-button" (click)="deleteFournisseur(fournisseur.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

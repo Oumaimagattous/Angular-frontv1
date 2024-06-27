@@ -43,7 +43,16 @@ import { EtaCasierComponent } from '../../eta-casier/eta-casier.component';
 import { AddJournalCasierComponent } from '../../journal-casier/add-journal-casier/add-journal-casier.component';
 
 
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { MatMenuModule } from '@angular/material/menu';
 
+
+// Factory function for the translation loader
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 @NgModule({
   imports: [
     CommonModule,
@@ -60,6 +69,14 @@ import { AddJournalCasierComponent } from '../../journal-casier/add-journal-casi
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
+    MatMenuModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   declarations: [
     DashboardComponent,

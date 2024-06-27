@@ -25,8 +25,8 @@ export class BonEntrerComponent implements OnInit {
   filteredBonsEntree: BonEntree[] = [];
   startDate: Date | null = null;
   endDate: Date | null = null;
-
-  @ViewChild(MatSnackBar) snackBar: MatSnackBar;
+  
+ //@ViewChild(MatSnackBar) snackBar: MatSnackBar;
 
   constructor(
     private bonEntreeService: BonEntrersService,
@@ -35,6 +35,7 @@ export class BonEntrerComponent implements OnInit {
     private fournisseurService: FournissursService,
     private chambreService: ChambresService,
     private produitService: ProduitsService,
+    private snackBar: MatSnackBar,
     private router: Router,
 
     private dialog: MatDialog
@@ -63,27 +64,39 @@ export class BonEntrerComponent implements OnInit {
 
  
   applyDateFilter(): void {
+    const idSociete = this.authService.getIdSociete();
+    if (!idSociete) {
+      console.error('ID de société non défini.');
+      return;
+    }
+  
     this.filteredBonsEntree = this.bonsEntree.filter(bonEntree => {
       const date = new Date(bonEntree.date);
-      return (!this.startDate || date >= this.startDate) && (!this.endDate || date <= this.endDate);
+      return bonEntree.idSociete === idSociete &&
+             (!this.startDate || date >= this.startDate) &&
+             (!this.endDate || date <= this.endDate);
     });
   }
+  
 
   addBonEntree(): void {
     const dialogRef = this.dialog.open(AddEditBonEntrerComponent, {
       width: '400px',
-      data: { bonEntree: null }
+      data: { bonEntree: null } // Assurez-vous d'envoyer null ici pour ajouter un nouveau bon d'entrée
     });
-
+  
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.bonEntreeService.addBonEntrer(result).subscribe(() => {
-          this.snackBar.open('Bon d\'entrée ajouté avec succès', 'Fermer', { duration: 2000 });
           this.loadBonsEntree();
+          this.snackBar.open('Bon d\'entrée ajouté avec succès', 'Fermer', { duration: 2000 });
         });
       }
     });
   }
+  
+  
+  
 
   editBonEntree(id: number): void {
     const bonEntree = this.bonsEntree.find(b => b.id === id);
@@ -91,25 +104,34 @@ export class BonEntrerComponent implements OnInit {
       width: '400px',
       data: { bonEntree }
     });
-
+  
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.bonEntreeService.updateBonEntrer(result.id, result).subscribe(() => {
-          this.snackBar.open('Bon d\'entrée modifié avec succès', 'Fermer', { duration: 2000 });
           this.loadBonsEntree();
+          this.snackBar.open('Bon d\'entrée modifié avec succès', 'Fermer', { duration: 2000 });
         });
       }
     });
   }
+  
+  
 
   deleteBonEntree(id: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer ce bon d\'entrée ?')) {
       this.bonEntreeService.deleteBonEntrer(id).subscribe(() => {
         this.snackBar.open('Bon d\'entrée supprimé avec succès', 'Fermer', { duration: 2000 });
-        this.loadBonsEntree();
+        
+        // Supprimer le bon d'entrée de la liste locale bonsEntree
+        this.bonsEntree = this.bonsEntree.filter(bonEntree => bonEntree.id !== id);
+  
+        // Mettre à jour filteredBonsEntree si nécessaire (assurez-vous que filteredBonsEntree est mis à jour selon vos filtres appliqués)
+        this.filteredBonsEntree = this.filteredBonsEntree.filter(bonEntree => bonEntree.id !== id);
       });
     }
   }
+  
+  
   async printBonEntrer(bonEntree: BonEntree): Promise<void> {
     const doc = new jsPDF();
 

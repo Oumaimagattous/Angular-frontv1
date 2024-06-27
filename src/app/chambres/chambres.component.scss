@@ -67,17 +67,15 @@ tr:nth-child(even) {
   margin-left: 15px; /* Espacement entre les boutons */
 }
 
-.mat-icon {
-  color: #00bcd4; /* Couleur des icônes */
+/* Styles pour les icônes "edit" et "delete" */
+.edit-button .mat-icon {
+  color: #2196f3; /* Couleur de l'icône "edit" */
 }
 
-.mat-icon-button.color-primary {
-  color: #00bcd4; /* Couleur du bouton primaire */
+.delete-button .mat-icon {
+  color: #d32f2f; /* Couleur de l'icône "delete" */
 }
 
-.mat-icon-button.color-warn {
-  color: #d32f2f; /* Couleur du bouton d'alerte */
-}
 /* Styles pour le bouton Ajouter */
 .add-button-container {
   display: flex;

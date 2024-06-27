@@ -1,13 +1,13 @@
 <div class="main-body">
     <div class="panel-header">
-      <h2>Liste des clients</h2>
+      <h2> {{ 'Liste des clients' | translate }}</h2>
       
      
     </div>
 
     <div class="search-container">
       <mat-form-field class="search-input">
-        <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher...">
+        <input matInput (keyup)="applyFilter($event)" placeholder="{{ 'Rechercher' | translate }}...">
       </mat-form-field>
       <button  class="add-button" mat-icon-button color="primary" (click)="navigateToAddClient()" aria-label="Ajouter client">
         <mat-icon>add</mat-icon>
@@ -23,21 +23,20 @@
         <thead>
           <tr>
            
-            <th>Nom</th>
-            <th>Type</th>
-            <th>MF</th> 
-            <th>CIN</th>
-            <th>Date d'émission</th> 
-            <th>Téléphone</th>
-            <th>Adresse</th>
-            <th>Actions</th> <!-- Nouvelle colonne pour les actions -->
-          </tr>
+          <th>{{ 'Nom' | translate }}</th>
+           <!--<th>{{ 'Type' | translate }}</th>-->
+          <th>{{ 'Matricule fiscal' | translate }}</th>
+          <th>{{ 'CIN' | translate }}</th>
+          <th>{{ 'Date de Délivrance' | translate }}</th>
+          <th>{{ 'Téléphone' | translate }}</th>
+          <th>{{ 'Adresse' | translate }}</th>
+          <th></th>
         </thead>
         <tbody>
           <tr *ngFor="let client of filteredClients">
             
             <td>{{ client.name }}</td>
-            <td>{{ client.type }}</td>
+            <!-- <td>{{ client.type }}</td>-->
             <td>{{ client.mf }}</td> 
             <td>{{ client.cin }}</td>
             <td>{{ client.dateEmission | date }}</td>
@@ -51,10 +50,10 @@
             <td>
               
               <!-- Boutons pour les actions edit et delete -->
-              <button mat-icon-button color="primary" (click)="navigateToEditClient(client.id)">
+              <button mat-icon-button class="edit-button" (click)="navigateToEditClient(client.id)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button color="warn" (click)="deleteClient(client.id)">
+              <button mat-icon-button class="delete-button" (click)="deleteClient(client.id)">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>

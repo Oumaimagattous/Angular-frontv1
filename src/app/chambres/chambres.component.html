@@ -1,46 +1,37 @@
 <div class="main-body">
-    <div class="panel-header">
-      <h2>Liste des Chambres</h2>
-      <div class="add-button-container">
-      
-    </div>
-    </div>
-    <div class="search-container">
-      <mat-form-field class="search-input">
-        <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher...">
-      </mat-form-field>
-      <button class="add-button" mat-icon-button color="primary" (click)="navigateToAddChambre()" aria-label="Ajouter client">
-        <mat-icon>add</mat-icon>
-      </button>
-     
-    </div>
-  
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            
-            <th>Nom</th>
-            
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let chambre of filteredChambres">
-           
-            <td>{{ chambre.name }}</td>
-            
-            <td>
-              <button mat-icon-button color="primary" (click)="editChambre(chambre.id)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-icon-button color="warn" (click)="deleteChambre(chambre.id)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="panel-header">
+    <h2>{{ 'Liste des chambres' | translate }}</h2>
+    <div class="add-button-container"></div>
   </div>
-  
+  <div class="search-container">
+    <mat-form-field class="search-input">
+      <input matInput (keyup)="applyFilter($event)" placeholder="{{ 'Rechercher' | translate }}">
+    </mat-form-field>
+    <button class="add-button" mat-icon-button color="primary" (click)="navigateToAddChambre()" aria-label="Ajouter client">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>{{ 'Nom' | translate }}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let chambre of filteredChambres">
+          <td>{{ chambre.name }}</td>
+          <td>
+            <button mat-icon-button class="edit-button" (click)="editChambre(chambre.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button class="delete-button" (click)="deleteChambre(chambre.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

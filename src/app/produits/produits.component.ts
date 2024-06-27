@@ -50,19 +50,31 @@ export class ProduitsComponent implements OnInit {
       console.error('ID de société non défini.');
     }
   }
+  
   applyFilter(event: any): void {
-    const searchTerm = event.target.value.toLowerCase();
-    this.filteredProduits = this.produits.filter(produit => 
-      produit.name.toLowerCase().includes(searchTerm)
-    );
+    const searchTerm = event.target.value.toLowerCase().trim(); // Convertir en minuscules et supprimer les espaces inutiles
+    if (!searchTerm) {
+      // Si le terme de recherche est vide, afficher tous les produits de la société connectée
+      this.filteredProduits = this.produits.filter(produit => produit.idSociete === this.authService.getIdSociete());
+    } else {
+      // Filtrer les produits par nom contenant le terme de recherche
+      this.filteredProduits = this.produits.filter(produit =>
+        produit.name.toLowerCase().includes(searchTerm) && produit.idSociete === this.authService.getIdSociete()
+      );
+    }
   }
+  
 
-  deleteProduit(id: number): void {
+  async deleteProduit(id: number): Promise<void> {
     if (confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')) {
-      this.produitsService.deleteProduit(id).subscribe(() => {
+      try {
+        await this.produitsService.deleteProduit(id).toPromise(); // Attendre la suppression du produit
         this.snackBar.open('Produit supprimé avec succès', 'Fermer', { duration: 2000 });
-        this.loadProduits();
-      });
+        this.loadProduits(); // Recharger les produits après la suppression
+      } catch (error) {
+        console.error('Erreur lors de la suppression du produit : ', error);
+        this.snackBar.open('Erreur lors de la suppression du produit', 'Fermer', { duration: 2000 });
+      }
     }
   }
 

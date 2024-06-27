@@ -1,5 +1,20 @@
 <div class="main-content">
   <div class="container-fluid">
+    <div class="language-switcher">
+        <mat-menu #langMenu="matMenu">
+          <button mat-menu-item (click)="switchLanguage('fr')">
+            <span class="btn-text">Français</span>
+          </button>
+          <button mat-menu-item (click)="switchLanguage('ar')">
+            <span class="btn-text">العربية</span>
+          </button>
+        </mat-menu>
+      
+        <button mat-icon-button [matMenuTriggerFor]="langMenu">
+          <i class="material-icons">language</i>
+        </button>
+      </div>
+      
       <div class="row">
           <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="card card-stats">

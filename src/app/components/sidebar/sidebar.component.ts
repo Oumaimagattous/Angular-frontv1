@@ -11,20 +11,36 @@ declare interface RouteInfo {
     open?: boolean;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-    { path: '/login', title: 'Login',  icon: 'login', class: '' },
+    //{ path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
+    { path: '/bon-entrer', title: 'Gestion des Entrées',  icon:'input', class: '' },
+    { path: '/bon-sorties', title: 'Gestion des sorties',  icon:'exit_to_app', class: '' },
+    //{ path: '/login', title: 'Login',  icon: 'login', class: '' },
     //{ path: '/societes', title: 'Societés',  icon:'notifications', class: '' },
-    { path: '/chambres', title: 'Chambres',  icon:'location_on', class: '' },
-    { path: '/clients', title: 'Clients',  icon:'person', class: '' },
-    { path: '/fournisseurs', title: 'Fournissuers',  icon:'person', class: '' },
-    { path: '/produits', title: 'Produits',  icon:'bubble_chart', class: '' },
-    { path: '/bon-entrer', title: 'BonEntrer',  icon:'content_paste', class: '' },
-    { path: '/bon-sorties', title: 'BonSortie',  icon:'content_paste', class: '' },
-    { path: '/stock', title: 'Stock', icon: 'inventory', class: '', children: [
-      { path: 'journal-stock', title: 'JournalStock', icon: 'content_paste', class: '' },
-      { path: 'eta-stock', title: 'EtatStock', icon: 'content_paste', class: '' },
-      { path: 'journal-casier', title: 'JournalCasier', icon: 'content_paste', class: '' }
-  ]},
+    {
+      path: '/Parametrage', 
+      title: 'Paramétrage', 
+      icon: 'settings',  
+      class: '', 
+      children: [
+        { path: '/chambres', title: 'Chambres', icon: 'home', class: '' },  
+        { path: '/clients', title: 'Clients', icon: 'group', class: '' }, 
+        { path: '/fournisseurs', title: 'Fournissuers', icon: 'local_shipping', class: '' },  
+        { path: '/produits', title: 'Produits', icon: 'shopping_cart', class: '' } 
+      ]
+    },
+    
+    {
+      path: '/stock', 
+      title: 'Statistique', 
+      icon: 'bar_chart',  
+      class: '', 
+      children: [
+        { path: 'journal-stock', title: 'Journal du Stock', icon: 'assessment', class: '' },  
+        { path: 'eta-stock', title: 'Etat du Stock', icon: 'inventory_2', class: '' },  
+        { path: 'journal-casier', title: 'Journal du Casier', icon: 'folder', class: '' }  
+      ]
+    }
+    
     
     
     

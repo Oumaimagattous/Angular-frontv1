@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from 'app/service/auth-service.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar'; 
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent  {
 
   constructor(
     private authService: AuthServiceService,
-    private router: Router 
+    private router: Router ,
+    private snackBar: MatSnackBar
   ) {}
 
   onSubmit() {
@@ -34,12 +36,13 @@ export class LoginComponent  {
          //this.authService.setIdSociete(this.idSociete);
 
         // Rediriger vers la page appropriée
-        this.router.navigate(['/dashboard']); // Rediriger vers le tableau de bord après la connexion réussie
+        this.router.navigate(['/bon-entrer']); // Rediriger vers le tableau de bord après la connexion réussie
       },
       error => {
         // Gérer les erreurs de connexion
         console.error('Erreur de connexion : ', error);
         // Afficher un message d'erreur à l'utilisateur
+        this.snackBar.open('Email ou mot de passe incorrect.', 'Fermer', { duration: 3000 }); // Afficher une notification d'erreur
       }
     );
   }
